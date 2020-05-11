@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 0730b6b741305704f8690e91ad3675c9
+guid: 068027c1e87242146a820e33ccbc7f70
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: mixamo.com
+    second: SwordAndShield IdleToBlock
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,17 +35,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: SwordAndShield IdleToBlock
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 52
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 1
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1

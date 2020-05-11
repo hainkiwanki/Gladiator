@@ -5,5 +5,5 @@ using UnityEngine;
 
 public enum EPlayerState
 {
-    NONE, IDLE, WALKING, RUNNING, ATTACKING,
+    NONE, IDLE, WALKING, RUNNING, ATTACKING, DODGE,
 }

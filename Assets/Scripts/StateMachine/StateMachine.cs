@@ -36,7 +36,7 @@ public class StateMachine
                 ChangeState(null);
                 break;
             case EPlayerState.IDLE:
-                if (CheckIfStateIs(new List<EPlayerState>() { EPlayerState.NONE, EPlayerState.WALKING }))
+                if (!CheckIfStateIs(new List<EPlayerState>() { EPlayerState.RUNNING }))
                 {
                     m_state = EPlayerState.IDLE;
                     ChangeState(new IdleState(m_player));
@@ -59,6 +59,10 @@ public class StateMachine
             case EPlayerState.ATTACKING:
                 m_state = EPlayerState.ATTACKING;
                 ChangeState(new AttackState(m_player));
+                break;
+            case EPlayerState.DODGE:
+                m_state = EPlayerState.DODGE;
+                ChangeState(new DodgeState(m_player));
                 break;
             default:
                 break;
