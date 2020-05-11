@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    private PlayerController m_controller;
     private Animator m_animator;
 
     private void Awake()
     {
-        m_controller = GetComponent<PlayerController>();
         m_animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void SetDirection(Vector3 _dir)
     {
-        m_animator.SetFloat("xdir", m_controller.MoveX);
-        m_animator.SetFloat("zdir", m_controller.MoveZ);
+        m_animator.SetFloat("xdir", _dir.x);
+        m_animator.SetFloat("zdir", _dir.z);
     }
-
 }

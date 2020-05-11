@@ -15,6 +15,8 @@ public static class InputManager
 
     public static Vector3 mouseWP => m_mouseWorldPos;
     private static Vector3 m_mouseWorldPos;
+    public static bool IsHoldingLShift => m_isHoldingLShift;
+    private static bool m_isHoldingLShift;
 
     public static void Awake()
     {
@@ -22,6 +24,8 @@ public static class InputManager
         m_playerInput = new PlayerInput();
         m_playerInput.Player.Movement.performed += ctx => m_movementInput = ctx.ReadValue<Vector2>();
         m_playerInput.Player.Mouse.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
+        m_playerInput.Player.Run.performed += ctx => m_isHoldingLShift = true;
+        m_playerInput.Player.Run.canceled += ctx => m_isHoldingLShift = false;
     }
 
     public static void OnEnable()
