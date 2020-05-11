@@ -5,6 +5,7 @@ using UnityEngine;
 public class WalkState : State
 {
     private float m_walkSpeed = 3.5f;
+
     public WalkState(PlayerController _player) : base(_player) { }
 
 
@@ -16,6 +17,7 @@ public class WalkState : State
     public override void OnExecute()
     {
         m_playerAnimator.SetDirection(m_playerController.MoveDirection);
+        m_playerController.SetMoveDirection(0.5f);
     }
 
     public override void OnExit()

@@ -10,6 +10,7 @@ public static class InputManager
     private static Vector2 m_movementInput;
     public static float horizontal => m_movementInput.x;
     public static float vertical => m_movementInput.y;
+    public static Vector2 movement => m_movementInput;
 
     private static Vector2 m_mouseScreenPos;
 

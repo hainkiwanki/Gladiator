@@ -9,6 +9,8 @@ public class IdleState : State
     public override void OnEnter()
     {
         m_playerController.SetMoveSpeed(0.0f);
+        m_playerController.ResetMoveDir();
+        m_playerAnimator.SetDirection(Vector3.zero);
     }
 
     public override void OnExecute(){}
