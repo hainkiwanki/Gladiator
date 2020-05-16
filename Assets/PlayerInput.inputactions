@@ -36,6 +36,62 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Kick",
+                    "type": "Button",
+                    "id": "35904bd1-011f-473a-a2c0-6d7a88cd06ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "c58257c8-d477-4af4-96d6-0db3bbf060e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DodgeW",
+                    "type": "Button",
+                    "id": "7ab778f8-feda-420c-8a58-39d71bbe3cfa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DodgeS",
+                    "type": "Button",
+                    "id": "b3467d75-7697-4d52-9fa7-aa705ccb0f11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DodgeA",
+                    "type": "Button",
+                    "id": "55595d55-223a-4de0-8b00-ac3236c60205",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DodgeD",
+                    "type": "Button",
+                    "id": "bf413516-4764-49c0-a76e-30b1d5dc74bb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "a6e90306-514c-4144-8a53-7d0d8e622803",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -124,6 +180,83 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "231ad918-c4f1-4974-92c9-da55e66a8e95",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Kick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2367a402-7c5d-4ad7-ae48-816100985076",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "664e786a-beca-48b1-8d65-93cb924c0bb9",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DodgeW",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2580b644-0840-433c-ad4a-49f391a4739c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DodgeS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e64f555-591a-4ca2-ae71-1714487a318c",
+                    "path": "<Keyboard>/a",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DodgeA",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "400dd2b7-89dd-41bf-92b6-d8ef2965bf09",
+                    "path": "<Keyboard>/d",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DodgeD",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5784864-4677-49ca-a048-b1401a910b36",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -6,6 +6,9 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: SwordAndShieldAttack1
+  - first:
+      74: -1805521419505254859
+    second: FreezeFrameAttack
   externalObjects: {}
   materials:
     materialImportMode: 1

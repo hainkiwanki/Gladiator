@@ -1,120 +1,73 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float m_currentMoveSpeed = 0.0f;
-    private float m_goalSpeed = 0.0f;
-    private float m_speedChange = 5.0f;
-
-    public Vector3 MoveDirection => m_moveDir;
-    private Vector3 m_moveDir, m_lookDir, m_inputDir;
-    private Vector3 m_goalDir, m_goalInputDir;
-    private CharacterController m_controller;
     private float m_rotSpeed = 10.0f;
-
     private StateMachine m_fsm;
+    private float m_speed, m_goalSpeed;
+    private float m_speedChange = 5.0f;
+    private Vector3 m_animDir, m_goalAnimDir;
+    private Vector3 m_moveDir, m_goalMoveDir;
+    private CharacterController m_controller;
+    private Vector3 m_lookDir;
+    public bool IsRunning => m_isRunning;
+    private bool m_isRunning = false;
+    public bool HasAttacked => m_hasAttacked;
     private bool m_hasAttacked = false;
 
-    private bool m_hasDodged = false;
-    private float m_timeDodged;
-    private float m_dodgeCooldown = 2.0f;
+    public bool HasKicked => m_hasKicked;
+    private bool m_hasKicked = false;
 
-    [SerializeField]
-    private EPlayerState state;
+    public bool IsBlocking => m_isBlocking;
+    private bool m_isBlocking = false;
 
-    private Vector3 m_dodgeLeft, m_dodgeRight, m_dodgeBack, m_dodgeBackLeft, m_dodgeBackRight
-;
     private void Awake()
     {
-        m_moveDir = Vector3.zero;
-        m_fsm = new StateMachine(this);
-        m_timeDodged = Time.deltaTime - m_dodgeCooldown;
+        m_fsm = new StateMachine();
+        m_fsm.SetStates(new Dictionary<System.Type, State>()
+        {
+            { typeof(IdleState), new IdleState(this) },
+            { typeof(WalkState), new WalkState(this) },
+            { typeof(RunState), new RunState(this) },
+            { typeof(AttackState), new AttackState(this) },
+            { typeof(DodgeState), new DodgeState(this) },
+            { typeof(BlockState), new BlockState(this) },
+            { typeof(KickState), new KickState(this) },
+        });
+        m_controller = GetComponent<CharacterController>();
     }
 
     private void Start()
     {
-        m_controller = GetComponent<CharacterController>();
-        m_fsm.RequestNewState(EPlayerState.IDLE);
-        EventManager.onAttackingFinished += OnAttackingFinished;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(m_dodgeBack, 0.1f);
-        //Gizmos.DrawWireSphere(transform.position, 0.5f);
+        InputManager.playerInput.Run.performed += _ => m_isRunning = true;
+        InputManager.playerInput.Run.canceled += _ => m_isRunning = false;
+        InputManager.playerInput.Attack.performed += _ => m_hasAttacked = true;
+        InputManager.playerInput.Attack.canceled += _ => m_hasAttacked = false;
+        InputManager.playerInput.Kick.performed += _ => m_hasKicked = true;
+        InputManager.playerInput.Kick.canceled += _ => m_hasKicked = false;
+        InputManager.playerInput.Block.performed += _ => m_isBlocking = true;
+        InputManager.playerInput.Block.canceled += _ => m_isBlocking = false;
     }
 
     private void Update()
     {
-        m_dodgeBack = transform.position - transform.forward * 2.0f;
-
-        RotateToMousePos();
-        ProcessInput();
-        CheckState();
-
-        m_moveDir = Vector3.Lerp(m_moveDir, m_goalDir, Time.deltaTime * m_speedChange);
-        m_currentMoveSpeed = Mathf.Lerp(m_currentMoveSpeed, m_goalSpeed, Time.deltaTime * m_speedChange);
-        m_inputDir = Vector3.Lerp(m_inputDir, m_goalInputDir, Time.deltaTime * m_speedChange);
-
+        m_speed = Mathf.Lerp(m_speed, m_goalSpeed, Time.deltaTime * m_speedChange);
+        m_animDir = Vector3.Lerp(m_animDir, m_goalAnimDir, Time.deltaTime * m_speedChange);
+        m_moveDir = Vector3.Lerp(m_moveDir, m_goalMoveDir, Time.deltaTime * m_speedChange);
         m_fsm.Update();
-        if(m_controller.enabled)
-            m_controller.Move(m_inputDir * m_currentMoveSpeed * Time.deltaTime);
-
-        state = m_fsm.CurrentState;
     }
 
-    private void ProcessInput()
+    public void Move()
     {
-        m_goalInputDir = (Vector3.right * InputManager.horizontal + Vector3.forward * InputManager.vertical).normalized;
-        m_hasAttacked = InputManager.HasPressedLMB;
-
+        m_controller.Move(m_moveDir * m_speed * Time.deltaTime);
     }
 
-    private void CheckState()
-    {
-        if (InputManager.HasPressedSpace && Time.time - m_timeDodged > m_dodgeCooldown)
-            m_fsm.RequestNewState(EPlayerState.DODGE);
-
-        switch (m_fsm.CurrentState)
-        {
-            case EPlayerState.IDLE:
-                if (m_inputDir != Vector3.zero)
-                    m_fsm.RequestNewState(EPlayerState.WALKING);
-                if (m_hasAttacked)
-                    m_fsm.RequestNewState(EPlayerState.ATTACKING);
-                break;
-            case EPlayerState.WALKING:
-                if (m_inputDir == Vector3.zero)
-                    m_fsm.RequestNewState(EPlayerState.IDLE);
-                if (InputManager.IsHoldingLShift)
-                    m_fsm.RequestNewState(EPlayerState.RUNNING);
-                if (m_hasAttacked)
-                    m_fsm.RequestNewState(EPlayerState.ATTACKING);
-                break;
-            case EPlayerState.RUNNING:
-                if (!InputManager.IsHoldingLShift || m_inputDir == Vector3.zero)
-                    m_fsm.RequestNewState(EPlayerState.WALKING);
-                if (m_hasAttacked)
-                    m_fsm.RequestNewState(EPlayerState.ATTACKING);
-                break;
-            case EPlayerState.ATTACKING:
-                break;
-            case EPlayerState.DODGE:
-                break;
-            case EPlayerState.NONE:
-            default:
-                break;
-        }
-    }
-
-    private void RotateToMousePos()
+    public void RotateToMousePos()
     {
         m_lookDir = (InputManager.mouseWP - transform.position).normalized;
         var distance = Vector3.Distance(transform.position, InputManager.mouseWP);
-        if(distance < 0.5f)
+        if (distance < 0.5f)
         {
             return;
         }
@@ -126,32 +79,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ResetMoveDir()
-    {
-        m_goalDir.z = 0.0f;
-        m_goalDir.x = 0.0f;
-    }
-
-    public void SetMoveDirection(float _multiplier = 1.0f)
-    {
-        m_goalDir.z = Vector3.Dot(m_inputDir, m_lookDir);
-        var perpen = Vector3.Cross(Vector3.up, m_inputDir);
-        var dot = Vector3.Dot(m_lookDir, perpen);
-        m_goalDir.x = -dot;
-
-        m_goalDir *= _multiplier;
-    }
-
-    public void SetMoveSpeed(float _speed)
+    public void SetGoalSpeed(float _speed, bool _instant = false)
     {
         m_goalSpeed = _speed;
+        if (_instant)
+            m_speed = m_goalSpeed;
     }
 
-    private void OnAttackingFinished()
+    public void SetMoveDir(Vector3 _dir)
     {
-        if (m_fsm.CurrentState == EPlayerState.ATTACKING)
+        m_goalMoveDir = m_moveDir = _dir;
+    }
+
+    public void SetGoalAnimationDirection(Vector3 _dir, float _multi = 1.0f, bool _instant = false)
+    {
+        m_goalMoveDir = _dir;
+        m_goalAnimDir.z = Vector3.Dot(_dir, m_lookDir);
+        var perpen = Vector3.Cross(Vector3.up, _dir);
+        var dot = Vector3.Dot(m_lookDir, perpen);
+        m_goalAnimDir.x = -dot;
+        m_goalAnimDir *= _multi;
+
+        if (_instant)
         {
-            m_fsm.RequestNewState(EPlayerState.IDLE);
+            m_animDir = m_goalAnimDir;
+            m_moveDir = m_goalMoveDir;
         }
+    }
+
+    public Vector3 GetAnimationDirection()
+    {
+        return m_animDir;
+    }
+
+    public Vector3 TransformVector3ToLocal(Vector3 _absDir)
+    {
+        var angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
+        return Quaternion.Euler(0.0f, -angle, 0.0f) * _absDir;
     }
 }

@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: bd2a9dc45acc79d4b9ada4e959c6330d
+guid: 15f152fbc23374e48a9bf181b5b50b57
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: SwordAndShieldDodge
+    second: DodgeForward
+  - first:
+      74: 4061839508520268033
+    second: FreezeFrameDodge
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: SwordAndShieldDodge
+      name: DodgeForward
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 20.2
-      lastFrame: 27.3
+      firstFrame: 0
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -50,7 +53,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1

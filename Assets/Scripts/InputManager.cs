@@ -1,53 +1,97 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public static class InputManager
 {
     private static PlayerInput m_playerInput;
     private static Camera m_cam;
 
-    private static Vector2 m_movementInput;
-    public static float horizontal => m_movementInput.x;
-    public static float vertical => m_movementInput.y;
-    public static Vector2 movement => m_movementInput;
-
     private static Vector2 m_mouseScreenPos;
 
     public static Vector3 mouseWP => m_mouseWorldPos;
     private static Vector3 m_mouseWorldPos;
-    public static bool IsHoldingLShift => m_isHoldingLShift;
-    private static bool m_isHoldingLShift;
 
+    public static Vector2 InputDirection;
+
+    // Combo clicking
     public static int AmountOfClicks => m_amountOfClicks;
     private static int m_amountOfClicks = 0;
     private static float m_lastTimeClicked;
     private static float m_maxComboDelay = 0.4f;
+    public static PlayerInput.PlayerActions playerInput;
 
-    public static bool HasPressedLMB => m_hasPressedLMB; // Attack
-    private static bool m_hasPressedLMB = false;
-
-    public static bool HasPressedSpace => m_hasPressedSpace; // Dodge
-    private static bool m_hasPressedSpace = false;
+    // Double tapping
+    public static bool HasDodged => m_hasDodged;
+    public static Vector2 DodgeDirection;
+    private static bool m_hasDodged = false;
+    private static Dictionary<char, float> m_firstTapPerKey;
 
     public static void Awake()
     {
         m_cam = Camera.main;
         m_playerInput = new PlayerInput();
-        m_playerInput.Player.Movement.performed += ctx => m_movementInput = ctx.ReadValue<Vector2>();
+        playerInput = m_playerInput.Player;
+
         m_playerInput.Player.MousePosition.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
+        m_playerInput.Player.Attack.performed += ctx => OnLMBPressed();
 
-        m_playerInput.Player.Run.performed += ctx => m_isHoldingLShift = true;
-        m_playerInput.Mouse.LMBPressed.performed += ctx => OnLMBPressed();
-        m_playerInput.Mouse.LMBPressed.canceled += ctx => m_hasPressedLMB = false;
+        m_playerInput.Player.Movement.performed += ctx => InputDirection = ctx.ReadValue<Vector2>();
 
-        m_playerInput.Player.Dodge.performed += ctx => m_hasPressedSpace = true;
-        m_playerInput.Player.Dodge.canceled += ctx => m_hasPressedSpace = false;
+        m_playerInput.Player.DodgeW.performed += ctx => OnDodgeTap('w');
+        m_playerInput.Player.DodgeA.performed += ctx => OnDodgeTap('a');
+        m_playerInput.Player.DodgeS.performed += ctx => OnDodgeTap('s');
+        m_playerInput.Player.DodgeD.performed += ctx => OnDodgeTap('d');
+        m_playerInput.Player.Dodge.performed += ctx => OnDodge(true);
+        m_playerInput.Player.Dodge.canceled += ctx => OnDodge(false);
+
+        var offset = 10.0f; // to prevent double tap when player first starts moving
+        m_firstTapPerKey = new Dictionary<char, float>() {
+            {'w', Time.time - offset }, {'s', Time.time - offset }, 
+            {'d', Time.time - offset }, {'a', Time.time - offset } };
+
+    }
+
+    private static void OnDodge(bool _b)
+    {
+        m_hasDodged = (_b && InputDirection != Vector2.zero);
+        DodgeDirection = (m_hasDodged) ? InputDirection : Vector2.zero;
+    }
+
+    private static void OnDodgeTap(char _c)
+    {
+        DodgeDirection = Vector3.zero;
+        if (!m_hasDodged)
+        {
+            var currentTime = Time.time;
+            var dodgeTime = 0.5f;
+            if (currentTime - m_firstTapPerKey[_c] < dodgeTime)
+            {
+                if (_c == 'w')
+                    DodgeDirection.y = 1.0f;
+                else if (_c == 's')
+                    DodgeDirection.y = -1.0f;
+                else if (_c == 'a')
+                    DodgeDirection.x = -1.0f;
+                else if (_c == 'd')
+                    DodgeDirection.x = 1.0f;
+                m_hasDodged = true;
+            }
+            else
+            {
+                m_firstTapPerKey[_c] = Time.time;
+            }
+        }
+    }
+
+    public static void SetDodged(bool _B)
+    {
+        m_hasDodged = _B;
     }
 
     private static void OnLMBPressed()
     {
-        m_hasPressedLMB = true;
         m_lastTimeClicked = Time.time;
         m_amountOfClicks++;
     }
@@ -69,7 +113,7 @@ public static class InputManager
             m_amountOfClicks = 0;
         }
 
-        if(GetMouseWorldPosition(out Vector3 worldPos))
+        if (GetMouseWorldPosition(out Vector3 worldPos))
         {
             m_mouseWorldPos = worldPos;
         }

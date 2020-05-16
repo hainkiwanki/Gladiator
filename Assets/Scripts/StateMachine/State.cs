@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IState
 {
     void OnEnter();
-    void OnExecute();
+    System.Type OnExecute();
     void OnExit();
 }
 
@@ -21,6 +21,8 @@ public abstract class State : IState
     }
 
     public abstract void OnEnter();
-    public abstract void OnExecute();
+
+    public abstract System.Type OnExecute();
+
     public abstract void OnExit();
 }

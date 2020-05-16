@@ -49,6 +49,62 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Kick"",
+                    ""type"": ""Button"",
+                    ""id"": ""35904bd1-011f-473a-a2c0-6d7a88cd06ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""c58257c8-d477-4af4-96d6-0db3bbf060e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DodgeW"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ab778f8-feda-420c-8a58-39d71bbe3cfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DodgeS"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3467d75-7697-4d52-9fa7-aa705ccb0f11"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DodgeA"",
+                    ""type"": ""Button"",
+                    ""id"": ""55595d55-223a-4de0-8b00-ac3236c60205"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DodgeD"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf413516-4764-49c0-a76e-30b1d5dc74bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6e90306-514c-4144-8a53-7d0d8e622803"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +195,83 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""231ad918-c4f1-4974-92c9-da55e66a8e95"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2367a402-7c5d-4ad7-ae48-816100985076"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""664e786a-beca-48b1-8d65-93cb924c0bb9"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DodgeW"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2580b644-0840-433c-ad4a-49f391a4739c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DodgeS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e64f555-591a-4ca2-ae71-1714487a318c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DodgeA"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""400dd2b7-89dd-41bf-92b6-d8ef2965bf09"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DodgeD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5784864-4677-49ca-a048-b1401a910b36"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -216,6 +349,13 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
+        m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_DodgeW = m_Player.FindAction("DodgeW", throwIfNotFound: true);
+        m_Player_DodgeS = m_Player.FindAction("DodgeS", throwIfNotFound: true);
+        m_Player_DodgeA = m_Player.FindAction("DodgeA", throwIfNotFound: true);
+        m_Player_DodgeD = m_Player.FindAction("DodgeD", throwIfNotFound: true);
+        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_LMBPressed = m_Mouse.FindAction("LMBPressed", throwIfNotFound: true);
@@ -274,6 +414,13 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Dodge;
+    private readonly InputAction m_Player_Kick;
+    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_DodgeW;
+    private readonly InputAction m_Player_DodgeS;
+    private readonly InputAction m_Player_DodgeA;
+    private readonly InputAction m_Player_DodgeD;
+    private readonly InputAction m_Player_Block;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -282,6 +429,13 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
+        public InputAction @Kick => m_Wrapper.m_Player_Kick;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @DodgeW => m_Wrapper.m_Player_DodgeW;
+        public InputAction @DodgeS => m_Wrapper.m_Player_DodgeS;
+        public InputAction @DodgeA => m_Wrapper.m_Player_DodgeA;
+        public InputAction @DodgeD => m_Wrapper.m_Player_DodgeD;
+        public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -303,6 +457,27 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Dodge.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodge;
                 @Dodge.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodge;
                 @Dodge.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodge;
+                @Kick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
+                @Kick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
+                @Kick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
+                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @DodgeW.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeW;
+                @DodgeW.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeW;
+                @DodgeW.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeW;
+                @DodgeS.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeS;
+                @DodgeS.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeS;
+                @DodgeS.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeS;
+                @DodgeA.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeA;
+                @DodgeA.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeA;
+                @DodgeA.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeA;
+                @DodgeD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeD;
+                @DodgeD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeD;
+                @DodgeD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeD;
+                @Block.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
+                @Block.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
+                @Block.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -319,6 +494,27 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Dodge.started += instance.OnDodge;
                 @Dodge.performed += instance.OnDodge;
                 @Dodge.canceled += instance.OnDodge;
+                @Kick.started += instance.OnKick;
+                @Kick.performed += instance.OnKick;
+                @Kick.canceled += instance.OnKick;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @DodgeW.started += instance.OnDodgeW;
+                @DodgeW.performed += instance.OnDodgeW;
+                @DodgeW.canceled += instance.OnDodgeW;
+                @DodgeS.started += instance.OnDodgeS;
+                @DodgeS.performed += instance.OnDodgeS;
+                @DodgeS.canceled += instance.OnDodgeS;
+                @DodgeA.started += instance.OnDodgeA;
+                @DodgeA.performed += instance.OnDodgeA;
+                @DodgeA.canceled += instance.OnDodgeA;
+                @DodgeD.started += instance.OnDodgeD;
+                @DodgeD.performed += instance.OnDodgeD;
+                @DodgeD.canceled += instance.OnDodgeD;
+                @Block.started += instance.OnBlock;
+                @Block.performed += instance.OnBlock;
+                @Block.canceled += instance.OnBlock;
             }
         }
     }
@@ -378,6 +574,13 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
+        void OnKick(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnDodgeW(InputAction.CallbackContext context);
+        void OnDodgeS(InputAction.CallbackContext context);
+        void OnDodgeA(InputAction.CallbackContext context);
+        void OnDodgeD(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
     }
     public interface IMouseActions
     {

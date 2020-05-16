@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum EPlayerState
+public enum EBehaviourState
 {
-    NONE, IDLE, WALKING, RUNNING, ATTACKING, DODGE,
+    ENTER, EXECUTE, EXIT
 }
