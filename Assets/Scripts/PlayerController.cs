@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,16 +12,31 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_moveDir, m_goalMoveDir;
     private CharacterController m_controller;
     private Vector3 m_lookDir;
+
     public bool IsRunning => m_isRunning;
     private bool m_isRunning = false;
     public bool HasAttacked => m_hasAttacked;
     private bool m_hasAttacked = false;
-
     public bool HasKicked => m_hasKicked;
     private bool m_hasKicked = false;
-
     public bool IsBlocking => m_isBlocking;
     private bool m_isBlocking = false;
+
+    [SerializeField]
+    private Transform m_leftFoot;
+    [SerializeField]
+    private Transform m_leftFootTip;
+    [SerializeField]
+    private Transform m_rightFoot;
+    [SerializeField]
+    private Transform m_rightFootTip;
+
+    [SerializeField]
+    private GameObject m_footprintParticle;
+    [SerializeField]
+    private GameObject m_footprintTipParticle;
+
+    public GameObject m_clonePrefab;
 
     private void Awake()
     {
@@ -65,8 +81,10 @@ public class PlayerController : MonoBehaviour
 
     public void RotateToMousePos()
     {
+        // MAKE SURE GROuND LAYER IS ON THE GROUND PLANE
         m_lookDir = (InputManager.mouseWP - transform.position).normalized;
         var distance = Vector3.Distance(transform.position, InputManager.mouseWP);
+        // Debug.Log(distance);
         if (distance < 0.5f)
         {
             return;
@@ -116,5 +134,31 @@ public class PlayerController : MonoBehaviour
     {
         var angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
         return Quaternion.Euler(0.0f, -angle, 0.0f) * _absDir;
+    }
+
+    public void PlayBackwardFootParticle(AnimationEvent _evt)
+    {
+        // Debug.Log(evt.animatorClipInfo.clip.name + ", " + evt.animatorClipInfo.weight + ", " + evt.intParameter);
+        var foot = _evt.intParameter;
+        if (_evt.animatorClipInfo.weight > 0.5f)
+        {
+            var footT = (foot > 0) ? m_rightFootTip : m_leftFootTip;
+            Instantiate(m_footprintTipParticle, footT);
+        }
+    }
+
+    public void PlayFootprintParticle(AnimationEvent _evt) // 1 = right foot, -1 = left foot
+    {
+        var foot = _evt.intParameter;
+        if (_evt.animatorClipInfo.weight > 0.5f)
+        {
+            var footT = (foot > 0) ? m_rightFoot : m_leftFoot;
+            Instantiate(m_footprintParticle, footT);
+        }
+    }
+
+    public void StartACoroutine(IEnumerator _co)
+    {
+        StartCoroutine(_co);
     }
 }

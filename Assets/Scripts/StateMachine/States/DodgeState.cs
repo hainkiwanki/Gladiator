@@ -15,6 +15,8 @@ public class DodgeState : State
         m_playerAnimator.SetDirection("dir", Vector3.zero);
         m_playerAnimator.SetBool("dodged", true);
         m_playerController.SetMoveDir(m_direction.normalized);
+        m_playerController.SetGoalSpeed(2.8f);
+        m_playerController.StartACoroutine(SpawnClones());
     }
 
     public override System.Type OnExecute()
@@ -33,5 +35,20 @@ public class DodgeState : State
         m_playerAnimator.SetDirection("dodge", Vector3.zero);
         m_playerAnimator.SetDirection("dir", Vector3.zero);
         m_playerController.SetGoalAnimationDirection(Vector3.zero, 1.0f, true);
+    }
+
+    IEnumerator SpawnClones()
+    {
+        int frame = 0;
+        while(m_playerAnimator.GetBool("dodged"))
+        {
+            bool spawnClone = (frame % 20) == 0;
+            if(spawnClone)
+            {
+                Cloner.ClonePlayer(m_playerController.gameObject);
+            }
+            frame++;
+            yield return null;
+        }
     }
 }

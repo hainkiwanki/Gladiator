@@ -339,6 +339,33 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Test"",
+            ""id"": ""ef3ae5be-2539-4fa8-9479-bd64707b9b26"",
+            ""actions"": [
+                {
+                    ""name"": ""TestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7a0986e-4d47-4d2c-b29d-06ab3ad10b41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""60cdef3e-1bb6-47f5-91df-31ecb9ed5637"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -361,6 +388,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Mouse_LMBPressed = m_Mouse.FindAction("LMBPressed", throwIfNotFound: true);
         m_Mouse_LMBReleased = m_Mouse.FindAction("LMBReleased", throwIfNotFound: true);
         m_Mouse_LMBHold = m_Mouse.FindAction("LMBHold", throwIfNotFound: true);
+        // Test
+        m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
+        m_Test_TestButton = m_Test.FindAction("TestButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -568,6 +598,39 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         }
     }
     public MouseActions @Mouse => new MouseActions(this);
+
+    // Test
+    private readonly InputActionMap m_Test;
+    private ITestActions m_TestActionsCallbackInterface;
+    private readonly InputAction m_Test_TestButton;
+    public struct TestActions
+    {
+        private @PlayerInput m_Wrapper;
+        public TestActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TestButton => m_Wrapper.m_Test_TestButton;
+        public InputActionMap Get() { return m_Wrapper.m_Test; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestActions set) { return set.Get(); }
+        public void SetCallbacks(ITestActions instance)
+        {
+            if (m_Wrapper.m_TestActionsCallbackInterface != null)
+            {
+                @TestButton.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTestButton;
+                @TestButton.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTestButton;
+                @TestButton.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTestButton;
+            }
+            m_Wrapper.m_TestActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @TestButton.started += instance.OnTestButton;
+                @TestButton.performed += instance.OnTestButton;
+                @TestButton.canceled += instance.OnTestButton;
+            }
+        }
+    }
+    public TestActions @Test => new TestActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -587,5 +650,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnLMBPressed(InputAction.CallbackContext context);
         void OnLMBReleased(InputAction.CallbackContext context);
         void OnLMBHold(InputAction.CallbackContext context);
+    }
+    public interface ITestActions
+    {
+        void OnTestButton(InputAction.CallbackContext context);
     }
 }

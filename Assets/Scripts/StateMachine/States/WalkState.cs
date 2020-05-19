@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class WalkState : State
 {
-
     public WalkState(PlayerController _player) : base(_player) { }
 
-    private float m_walkSpeed = 3.5f;
+    private float m_walkSpeed = 2.8f;
     private Vector2 m_inputDirection;
+
+    private Vector3 prevPos = Vector3.zero;
 
     public override void OnEnter()
     {
@@ -17,9 +18,13 @@ public class WalkState : State
 
     public override System.Type OnExecute()
     {
-
         m_playerController.RotateToMousePos();
         m_inputDirection = InputManager.InputDirection;
+
+        //var currPos = m_playerController.transform.position;
+        //Debug.Log((currPos - prevPos).ToString("F4"));
+        //prevPos = currPos;
+
         if (InputManager.HasDodged)
             return typeof(DodgeState);
         if (m_playerController.IsBlocking)

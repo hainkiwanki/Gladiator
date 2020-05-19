@@ -21,6 +21,7 @@ public static class InputManager
     private static float m_lastTimeClicked;
     private static float m_maxComboDelay = 0.4f;
     public static PlayerInput.PlayerActions playerInput;
+    public static PlayerInput.TestActions Test;
 
     // Double tapping
     public static bool HasDodged => m_hasDodged;
@@ -33,6 +34,7 @@ public static class InputManager
         m_cam = Camera.main;
         m_playerInput = new PlayerInput();
         playerInput = m_playerInput.Player;
+        Test = m_playerInput.Test;
 
         m_playerInput.Player.MousePosition.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
         m_playerInput.Player.Attack.performed += ctx => OnLMBPressed();

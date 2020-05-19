@@ -6,7 +6,7 @@ public class RunState : State
 {
     public RunState(PlayerController _player) : base(_player) { }
 
-    private float m_runSpeed = 7.0f;
+    private float m_runSpeed = 7.5f;
     private Vector2 m_inputDirection;
 
     public override void OnEnter()

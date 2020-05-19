@@ -38,9 +38,14 @@ public class PlayerAnimator : MonoBehaviour
         return m_animator.GetBool(_name);
     }
 
-    public AnimatorStateInfo GetAnimationClipInfo()
+    public AnimatorStateInfo GetAnimationStateInfo()
     {
         return m_animator.GetCurrentAnimatorStateInfo(0);
+    }
+
+    public AnimatorClipInfo GetAnimationClipInfo()
+    {
+        return m_animator.GetCurrentAnimatorClipInfo(0)[0];
     }
 
     public bool IsAnimationPlaying(string _name)
