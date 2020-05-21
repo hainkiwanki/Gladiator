@@ -42,10 +42,10 @@ public class DodgeState : State
         int frame = 0;
         while(m_playerAnimator.GetBool("dodged"))
         {
-            bool spawnClone = (frame % 20) == 0;
+            bool spawnClone = (frame % m_playerController.m_cloneFrameDelay) == 0;
             if(spawnClone)
             {
-                Cloner.ClonePlayer(m_playerController.gameObject);
+                Cloner.ClonePlayer(m_playerController.gameObject, m_playerController.m_cloneDissolveMulti); ;
             }
             frame++;
             yield return null;

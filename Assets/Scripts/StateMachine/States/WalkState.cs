@@ -27,13 +27,13 @@ public class WalkState : State
 
         if (InputManager.HasDodged)
             return typeof(DodgeState);
-        if (m_playerController.IsBlocking)
+        if (m_playerController.m_isBlocking)
             return typeof(BlockState);
-        if (m_playerController.HasAttacked)
+        if (m_playerController.m_hasAttacked)
             return typeof(AttackState);
         if (m_inputDirection == Vector2.zero)
             return typeof(IdleState);
-        if (m_playerController.IsRunning)
+        if (m_playerController.m_isRunning)
             return typeof(RunState);
 
         var goalDir = (Vector3.right * m_inputDirection.x + Vector3.forward * m_inputDirection.y).normalized;

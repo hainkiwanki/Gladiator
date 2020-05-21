@@ -15,9 +15,9 @@ public class BlockState : State
     public override Type OnExecute()
     {
         m_playerController.RotateToMousePos();
-        if (m_playerController.HasKicked)
+        if (m_playerController.m_hasKicked)
             return typeof(KickState);
-        if (!m_playerController.IsBlocking)
+        if (!m_playerController.m_isBlocking)
             return typeof(IdleState);
         if (InputManager.HasDodged)
             return typeof(DodgeState);

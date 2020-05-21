@@ -17,7 +17,7 @@ public class AttackState : State
     public override System.Type OnExecute()
     {
         bool attack1 = m_playerAnimator.GetBool("attack1");
-        if(m_playerController.HasAttacked && attack1 && InputManager.AmountOfClicks >= 2)
+        if(m_playerController.m_hasAttacked && attack1 && InputManager.AmountOfClicks >= 2)
         {
             m_playerAnimator.SetBool("attack2", true);
         }

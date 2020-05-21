@@ -17,13 +17,13 @@ public class RunState : State
     public override System.Type OnExecute()
     {
         m_inputDirection = InputManager.InputDirection;
-        if (m_playerController.IsBlocking)
+        if (m_playerController.m_isBlocking)
             return typeof(BlockState);
         if (InputManager.HasDodged)
             return typeof(DodgeState);
-        if (m_playerController.HasAttacked)
+        if (m_playerController.m_hasAttacked)
             return typeof(AttackState);
-        if (!m_playerController.IsRunning || m_inputDirection == Vector2.zero)
+        if (!m_playerController.m_isRunning || m_inputDirection == Vector2.zero)
             return typeof(WalkState);
 
         var goalDir = (Vector3.right * m_inputDirection.x + Vector3.forward * m_inputDirection.y).normalized;

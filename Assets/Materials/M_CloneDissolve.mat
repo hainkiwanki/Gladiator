@@ -169,6 +169,8 @@ Material:
     - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 1
+    - _EdgeBrightness: 9.62
+    - _EdgeSharpness: 2.78
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -179,7 +181,7 @@ Material:
     - _EnergyConservingSpecularColor: 1
     - _Float: 0
     - _Float1: 0
-    - _GradientTime: 1
+    - _GradientTime: 0
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0

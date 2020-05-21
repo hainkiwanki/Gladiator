@@ -13,15 +13,12 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_controller;
     private Vector3 m_lookDir;
 
-    public bool IsRunning => m_isRunning;
-    private bool m_isRunning = false;
-    public bool HasAttacked => m_hasAttacked;
-    private bool m_hasAttacked = false;
-    public bool HasKicked => m_hasKicked;
-    private bool m_hasKicked = false;
-    public bool IsBlocking => m_isBlocking;
-    private bool m_isBlocking = false;
+    public bool m_isRunning = false;
+    public bool m_hasAttacked = false;
+    public bool m_hasKicked = false;
+    public bool m_isBlocking = false;
 
+    [Header("Particles")]
     [SerializeField]
     private Transform m_leftFoot;
     [SerializeField]
@@ -30,13 +27,16 @@ public class PlayerController : MonoBehaviour
     private Transform m_rightFoot;
     [SerializeField]
     private Transform m_rightFootTip;
-
     [SerializeField]
     private GameObject m_footprintParticle;
     [SerializeField]
     private GameObject m_footprintTipParticle;
 
+
+    [Header("Clone Settings")]
     public GameObject m_clonePrefab;
+    public int m_cloneFrameDelay = 15;
+    public float m_cloneDissolveMulti = 5.0f;
 
     private void Awake()
     {
@@ -107,6 +107,16 @@ public class PlayerController : MonoBehaviour
     public void SetMoveDir(Vector3 _dir)
     {
         m_goalMoveDir = m_moveDir = _dir;
+    }
+
+    public Vector3 GetMoveDir()
+    {
+        return m_moveDir;
+    }
+
+    public Vector3 GetLookDir()
+    {
+        return m_lookDir;
     }
 
     public void SetGoalAnimationDirection(Vector3 _dir, float _multi = 1.0f, bool _instant = false)
