@@ -8,7 +8,7 @@ public class DodgeState : State
     
     private Vector3 m_direction;
 
-    public override void OnEnter()
+    public override void OnEnter(State _prvState)
     {
         m_direction = new Vector3(InputManager.DodgeDirection.x, 0.0f, InputManager.DodgeDirection.y);
         var dodgeDirection = m_playerController.TransformVector3ToLocal(m_direction).Round();

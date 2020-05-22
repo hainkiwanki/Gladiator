@@ -9,7 +9,7 @@ public class WalkState : State
     private float m_walkSpeed = 2.8f;
     private Vector2 m_inputDirection;
 
-    public override void OnEnter()
+    public override void OnEnter(State _prvState)
     {
         m_playerController.SetGoalSpeed(m_walkSpeed);
     }
@@ -21,8 +21,13 @@ public class WalkState : State
 
         if (InputManager.hasDodged)
             return typeof(DodgeState);
+        if (InputManager.isBlocking)
+            return typeof(BlockState);
         if (InputManager.hasAttacked)
+        {
+            m_playerController.m_comboCount = 4;
             return typeof(AttackState);
+        }
         if (m_inputDirection == Vector2.zero)
             return typeof(IdleState);
         if (InputManager.isRunning)
@@ -33,7 +38,7 @@ public class WalkState : State
         m_playerController.Move();
         m_playerAnimator.SetDirection("dir", m_playerController.GetAnimationDirection());
 
-        return typeof(WalkState);
+        return null;
     }
 
     public override void OnExit(){}

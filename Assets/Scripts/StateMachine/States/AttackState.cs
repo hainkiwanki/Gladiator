@@ -31,8 +31,9 @@ public class AttackState : State
 
     }
 
-    public override void OnEnter()
+    public override void OnEnter(State _prvState)
     {
+        m_prvState = _prvState;
         m_playerController.SetGoalAnimationDirection(Vector3.zero);
         m_playerController.SetGoalSpeed(0.0f, true);
         m_playerAnimator.SetTrigger("attacklmb");
@@ -43,14 +44,16 @@ public class AttackState : State
     public override System.Type OnExecute()
     {
         m_playerController.RotateToMousePos();
-
-        Debug.Log(InputManager.isRunning);
+        m_playerAnimator.SetBool("blocking", InputManager.isBlocking);
 
         if (InputManager.hasDodged)
             return typeof(DodgeState);
-
         if (m_doneAttacking)
+        {
+            if (InputManager.isBlocking && m_prvState is BlockState)
+                return typeof(BlockState);
             return typeof(IdleState);
+        }
 
         if (m_checkForNextCombo)
         {
@@ -60,19 +63,14 @@ public class AttackState : State
                 var time2 = m_playerActions[m_currentCombo].time;
                 if (time2 - time1 < m_maxComboDelay)
                 {
-                    //Debug.Log("next combo");
-                    if(m_currentCombo < 4)
+                    if(m_currentCombo < m_playerController.m_comboCount)
                         m_playerAnimator.SetTrigger("attacklmb");
                     m_checkForNextCombo = false;
                 }
-                // else
-                    // Debug.Log("too long pause");
             }
-            // else
-                // Debug.Log("not enough actions");
         }
 
-        return typeof(AttackState);
+        return null;
     }
 
     public void Attack(EButtonType _t)

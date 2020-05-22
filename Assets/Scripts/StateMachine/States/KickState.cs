@@ -7,7 +7,7 @@ public class KickState : State
 {
     public KickState(PlayerController _player) : base(_player) { }
 
-    public override void OnEnter()
+    public override void OnEnter(State _prvState)
     {
         m_playerAnimator.SetTrigger("kicked");
         m_playerAnimator.SetAnimationVariable("kickdone", false);

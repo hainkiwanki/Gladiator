@@ -7,6 +7,7 @@ using UnityEngine;
 public class StateMachine
 {
     protected State m_currentState;
+    protected State m_prvState = null;
     protected PlayerController m_player;
 
     private Dictionary<Type, State> m_possibleStates;
@@ -45,8 +46,9 @@ public class StateMachine
     {
         m_currentState?.OnExit();
 
+        m_prvState = m_currentState;
         m_currentState = m_possibleStates[_newState];
 
-        m_currentState?.OnEnter();
+        m_currentState?.OnEnter(m_prvState);
     }
 }

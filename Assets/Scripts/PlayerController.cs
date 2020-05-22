@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public float m_cloneDissolveMulti = 5.0f;
 
     public float m_attackSpeed = 2.0f;
+    public int m_comboCount = 3;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
             { typeof(RunState), new RunState(this) },
             { typeof(DodgeState), new DodgeState(this) },
             { typeof(AttackState), new AttackState(this) },
+            { typeof(BlockState), new BlockState(this) },
         });
         m_controller = GetComponent<CharacterController>();
     }

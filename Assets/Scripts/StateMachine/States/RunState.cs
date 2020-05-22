@@ -9,7 +9,7 @@ public class RunState : State
     private float m_runSpeed = 7.5f;
     private Vector2 m_inputDirection;
 
-    public override void OnEnter()
+    public override void OnEnter(State _prvState)
     {
        m_playerController.SetGoalSpeed(m_runSpeed);
     }
@@ -19,8 +19,13 @@ public class RunState : State
         m_inputDirection = InputManager.InputDirection;
         if (InputManager.hasDodged)
             return typeof(DodgeState);
+        if (InputManager.isBlocking)
+            return typeof(BlockState);
         if (InputManager.hasAttacked)
+        {
+            m_playerController.m_comboCount = 4;
             return typeof(AttackState);
+        }
         if (!InputManager.isRunning || m_inputDirection == Vector2.zero)
             return typeof(WalkState);
 

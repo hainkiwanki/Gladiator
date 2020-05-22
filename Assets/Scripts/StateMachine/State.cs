@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IState
 {
-    void OnEnter();
+    void OnEnter(State _prvState);
     System.Type OnExecute();
     void OnExit();
 }
@@ -13,6 +13,7 @@ public abstract class State : IState
 {
     protected PlayerController m_playerController;
     protected PlayerAnimator m_playerAnimator;
+    protected State m_prvState;
 
     public State(PlayerController _player)
     {
@@ -25,7 +26,7 @@ public abstract class State : IState
 
     }
 
-    public abstract void OnEnter();
+    public abstract void OnEnter(State _prvState);
 
     public abstract System.Type OnExecute();
 
