@@ -20,6 +20,11 @@ public abstract class State : IState
         m_playerAnimator = _player.GetComponent<PlayerAnimator>();
     }
 
+    public virtual void OnStart()
+    {
+
+    }
+
     public abstract void OnEnter();
 
     public abstract System.Type OnExecute();

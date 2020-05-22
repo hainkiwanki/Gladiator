@@ -13,6 +13,12 @@ public class StateMachine
 
     public StateMachine(){}
 
+    public void OnStart()
+    {
+        foreach (var s in m_possibleStates)
+            s.Value.OnStart();
+    }
+
     public void SetStates(Dictionary<Type, State> _states)
     {
         m_possibleStates = _states;

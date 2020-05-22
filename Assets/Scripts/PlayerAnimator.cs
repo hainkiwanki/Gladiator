@@ -33,6 +33,11 @@ public class PlayerAnimator : MonoBehaviour
         m_animator.SetTrigger(_name);
     }
 
+    public void SetInt(string _name, int _value)
+    {
+        m_animator.SetInteger(_name, _value);
+    }
+
     public bool GetBool(string _name)
     {
         return m_animator.GetBool(_name);
@@ -76,5 +81,10 @@ public class PlayerAnimator : MonoBehaviour
             return false;
         }
         return m_animationVariables[_name];
+    }
+
+    public void SetAnimationSpeed(float _s)
+    {
+        m_animator.speed = _s;
     }
 }

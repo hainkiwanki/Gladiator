@@ -17,12 +17,10 @@ public class RunState : State
     public override System.Type OnExecute()
     {
         m_inputDirection = InputManager.InputDirection;
-        //if (m_playerController.m_isBlocking)
-        //    return typeof(BlockState);
         if (InputManager.hasDodged)
             return typeof(DodgeState);
-        //if (m_playerController.m_hasAttacked)
-        //    return typeof(AttackState);
+        if (InputManager.hasAttacked)
+            return typeof(AttackState);
         if (!InputManager.isRunning || m_inputDirection == Vector2.zero)
             return typeof(WalkState);
 

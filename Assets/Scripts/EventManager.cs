@@ -5,17 +5,11 @@ using UnityEngine;
 public static class EventManager
 {
     #region AnimationEvents
-
-    public delegate void OnAttackingFinished();
-    public static OnAttackingFinished onAttackingFinished;
-
-
-    public delegate void OnDodgeFinished();
-    public static OnDodgeFinished onDodgeFinish;
+    public delegate void OnAttackComboReady(int _i);
+    public static OnAttackComboReady onAttackComboReady;
 
 
-    public delegate void OnKickFinished();
-    public static OnKickFinished onKickFinished;
-
+    public delegate void OnIdleAnimation();
+    public static OnIdleAnimation onIdleAnimationEntered;
     #endregion
 }

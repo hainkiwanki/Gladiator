@@ -11,7 +11,10 @@ public class DodgeState : State
     public override void OnEnter()
     {
         m_direction = new Vector3(InputManager.DodgeDirection.x, 0.0f, InputManager.DodgeDirection.y);
-        m_playerAnimator.SetDirection("dodge", m_playerController.TransformVector3ToLocal(m_direction).Round());
+        var dodgeDirection = m_playerController.TransformVector3ToLocal(m_direction).Round();
+        if (dodgeDirection.x != 0.0f && dodgeDirection.z != 0.0f)
+            dodgeDirection.z = 0.0f;
+        m_playerAnimator.SetDirection("dodge", dodgeDirection);
         m_playerAnimator.SetDirection("dir", Vector3.zero);
         m_playerAnimator.SetBool("dodged", true);
         m_playerController.SetMoveDir(m_direction.normalized);

@@ -9,8 +9,6 @@ public class WalkState : State
     private float m_walkSpeed = 2.8f;
     private Vector2 m_inputDirection;
 
-    private Vector3 prevPos = Vector3.zero;
-
     public override void OnEnter()
     {
         m_playerController.SetGoalSpeed(m_walkSpeed);
@@ -23,10 +21,8 @@ public class WalkState : State
 
         if (InputManager.hasDodged)
             return typeof(DodgeState);
-        //if (m_playerController.m_isBlocking)
-        //    return typeof(BlockState);
-        //if (m_playerController.m_hasAttacked)
-        //    return typeof(AttackState);
+        if (InputManager.hasAttacked)
+            return typeof(AttackState);
         if (m_inputDirection == Vector2.zero)
             return typeof(IdleState);
         if (InputManager.isRunning)

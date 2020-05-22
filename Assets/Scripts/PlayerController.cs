@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public int m_cloneFrameDelay = 15;
     public float m_cloneDissolveMulti = 5.0f;
 
+    public float m_attackSpeed = 2.0f;
+
     private void Awake()
     {
         m_fsm = new StateMachine();
@@ -42,8 +44,14 @@ public class PlayerController : MonoBehaviour
             { typeof(WalkState), new WalkState(this) },
             { typeof(RunState), new RunState(this) },
             { typeof(DodgeState), new DodgeState(this) },
+            { typeof(AttackState), new AttackState(this) },
         });
         m_controller = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        m_fsm.OnStart();
     }
 
     private void Update()
@@ -150,5 +158,15 @@ public class PlayerController : MonoBehaviour
     public void StartACoroutine(IEnumerator _co)
     {
         StartCoroutine(_co);
+    }
+
+    public void SetComboCounter(int _i)
+    {
+        EventManager.onAttackComboReady?.Invoke(_i);
+    }
+
+    public void EnteredIdleAnimation()
+    {
+        EventManager.onIdleAnimationEntered?.Invoke();
     }
 }

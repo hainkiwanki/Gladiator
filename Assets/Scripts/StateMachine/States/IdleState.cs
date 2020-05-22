@@ -18,12 +18,8 @@ public class IdleState : State
     {
         if (InputManager.hasDodged)
             return typeof(DodgeState);
-        //if (m_playerController.m_isBlocking)
-        //    return typeof(BlockState);
-        //if (m_playerController.m_hasAttacked)
-        //    return typeof(AttackState);
-        //if (m_playerController.m_hasKicked)
-        //    return typeof(KickState);
+        if (InputManager.hasAttacked)
+            return typeof(AttackState);
         if (InputManager.InputDirection != Vector2.zero)
             return typeof(WalkState);
         m_playerController.RotateToMousePos();

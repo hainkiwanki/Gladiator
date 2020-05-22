@@ -6,3 +6,23 @@ public enum EBehaviourState
 {
     ENTER, EXECUTE, EXIT
 }
+
+public enum EButtonType
+{ 
+    LMB, RMB, F, W
+}
+
+public static class EnumExt
+{
+    public static string ToAnimationVariable(this EButtonType _type)
+    {
+        switch (_type)
+        {
+            default:
+            case EButtonType.LMB:
+                return "lmbclicks";
+            case EButtonType.RMB:
+                return "rmbclicks";
+        }
+    }
+}

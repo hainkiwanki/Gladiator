@@ -36,8 +36,6 @@ public static class InputManager
         Test = m_playerInput.Test;
 
         m_playerInput.Player.MousePosition.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
-        m_playerInput.Player.Attack.performed += ctx => OnLMBPressed();
-
         m_playerInput.Player.Movement.performed += ctx => InputDirection = ctx.ReadValue<Vector2>();
 
         m_playerInput.Player.DodgeW.performed += ctx => OnDodgeTap('w');
@@ -48,8 +46,7 @@ public static class InputManager
         m_playerInput.Player.Dodge.canceled += ctx => OnDodge(false);
         m_playerInput.Player.Run.performed += _ => isRunning = true;
         m_playerInput.Player.Run.canceled += _ => isRunning = false;
-        m_playerInput.Player.Attack.performed += _ => hasAttacked = true;
-        m_playerInput.Player.Attack.canceled += _ => hasAttacked = false;
+        m_playerInput.Player.AttackPrimary.performed += _ => hasAttacked = true;
         m_playerInput.Player.Kick.performed += _ => hasKicked = true;
         m_playerInput.Player.Kick.canceled += _ => hasKicked = false;
         m_playerInput.Player.Block.performed += _ => isBlocking = true;
@@ -99,12 +96,6 @@ public static class InputManager
         hasDodged = _B;
     }
 
-    private static void OnLMBPressed()
-    {
-        m_lastTimeClicked = Time.time;
-        m_amountOfClicks++;
-    }
-
     public static void OnEnable()
     {
         m_playerInput.Enable();
@@ -117,11 +108,8 @@ public static class InputManager
 
     public static void Update()
     {
-        if(Time.time - m_lastTimeClicked > m_maxComboDelay)
-        {
-            m_amountOfClicks = 0;
-        }
-
+        if (hasAttacked)
+            hasAttacked = false;
         if (GetMouseWorldPosition(out Vector3 worldPos))
         {
             m_mouseWorldPos = worldPos;
