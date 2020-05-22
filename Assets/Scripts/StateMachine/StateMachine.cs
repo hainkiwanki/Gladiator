@@ -38,8 +38,6 @@ public class StateMachine
         {
             ChangeState(nextState);
         }
-
-        Debug.Log(m_currentState);
     }
 
     public void ChangeState(Type _newState)

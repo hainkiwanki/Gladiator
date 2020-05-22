@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject m_footprintTipParticle;
 
+    private Camera m_cam;
+    public Transform CameraTransform => m_cam.transform;
+
 
     [Header("Clone Settings")]
     public GameObject m_clonePrefab;
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour
             { typeof(BlockState), new BlockState(this) },
         });
         m_controller = GetComponent<CharacterController>();
+        m_cam = Camera.main;
     }
 
     private void Start()
@@ -111,6 +115,8 @@ public class PlayerController : MonoBehaviour
 
     public void SetGoalAnimationDirection(Vector3 _dir, float _multi = 1.0f, bool _instant = false)
     {
+        var cameraDir = (m_cam.transform.right.NewY(0.0f).normalized * _dir.x + m_cam.transform.forward.NewY(0.0f).normalized * _dir.z).normalized;
+        _dir = cameraDir;
         m_goalMoveDir = _dir;
         m_goalAnimDir.z = Vector3.Dot(_dir, m_lookDir);
         var perpen = Vector3.Cross(Vector3.up, _dir);

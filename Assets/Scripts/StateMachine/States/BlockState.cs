@@ -21,8 +21,6 @@ public class BlockState : State
         m_playerController.RotateToMousePos();
         m_inputDirection = InputManager.InputDirection;
 
-        if (InputManager.hasKicked)
-            return typeof(KickState);
         if (!InputManager.isBlocking)
             return typeof(IdleState);
         if (InputManager.hasAttacked)

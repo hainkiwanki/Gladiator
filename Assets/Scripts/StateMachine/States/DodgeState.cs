@@ -14,6 +14,9 @@ public class DodgeState : State
         var dodgeDirection = m_playerController.TransformVector3ToLocal(m_direction).Round();
         if (dodgeDirection.x != 0.0f && dodgeDirection.z != 0.0f)
             dodgeDirection.z = 0.0f;
+
+
+
         m_playerAnimator.SetDirection("dodge", dodgeDirection);
         m_playerAnimator.SetDirection("dir", Vector3.zero);
         m_playerAnimator.SetBool("dodged", true);
