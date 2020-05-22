@@ -16,16 +16,16 @@ public class IdleState : State
 
     public override Type OnExecute()
     {
-        if (InputManager.HasDodged)
+        if (InputManager.hasDodged)
             return typeof(DodgeState);
-        if (m_playerController.m_isBlocking)
-            return typeof(BlockState);
-        if (m_playerController.m_hasAttacked)
-            return typeof(AttackState);
+        //if (m_playerController.m_isBlocking)
+        //    return typeof(BlockState);
+        //if (m_playerController.m_hasAttacked)
+        //    return typeof(AttackState);
+        //if (m_playerController.m_hasKicked)
+        //    return typeof(KickState);
         if (InputManager.InputDirection != Vector2.zero)
             return typeof(WalkState);
-        if (m_playerController.m_hasKicked)
-            return typeof(KickState);
         m_playerController.RotateToMousePos();
         m_playerAnimator.SetDirection("dir", m_playerController.GetAnimationDirection());
         return typeof(IdleState);

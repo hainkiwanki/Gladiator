@@ -21,19 +21,15 @@ public class WalkState : State
         m_playerController.RotateToMousePos();
         m_inputDirection = InputManager.InputDirection;
 
-        //var currPos = m_playerController.transform.position;
-        //Debug.Log((currPos - prevPos).ToString("F4"));
-        //prevPos = currPos;
-
-        if (InputManager.HasDodged)
+        if (InputManager.hasDodged)
             return typeof(DodgeState);
-        if (m_playerController.m_isBlocking)
-            return typeof(BlockState);
-        if (m_playerController.m_hasAttacked)
-            return typeof(AttackState);
+        //if (m_playerController.m_isBlocking)
+        //    return typeof(BlockState);
+        //if (m_playerController.m_hasAttacked)
+        //    return typeof(AttackState);
         if (m_inputDirection == Vector2.zero)
             return typeof(IdleState);
-        if (m_playerController.m_isRunning)
+        if (InputManager.isRunning)
             return typeof(RunState);
 
         var goalDir = (Vector3.right * m_inputDirection.x + Vector3.forward * m_inputDirection.y).normalized;

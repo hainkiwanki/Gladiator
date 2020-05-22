@@ -15,11 +15,11 @@ public class BlockState : State
     public override Type OnExecute()
     {
         m_playerController.RotateToMousePos();
-        if (m_playerController.m_hasKicked)
+        if (InputManager.hasKicked)
             return typeof(KickState);
-        if (!m_playerController.m_isBlocking)
+        if (!InputManager.isBlocking)
             return typeof(IdleState);
-        if (InputManager.HasDodged)
+        if (InputManager.hasDodged)
             return typeof(DodgeState);
         return null;
     }

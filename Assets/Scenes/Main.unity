@@ -1028,6 +1028,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1374285177811875063, guid: a95db3a9094a5a240bf08687c89683bc,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 031ff71079f947646badeaab979725be, type: 2}
     - target: {fileID: 4099056424422912661, guid: a95db3a9094a5a240bf08687c89683bc,
         type: 3}
       propertyPath: m_clonePrefab

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DodgeState : State
+public class DodgeState : State 
 {
     public DodgeState(PlayerController _player) : base(_player) { }
     
@@ -11,7 +11,7 @@ public class DodgeState : State
     public override void OnEnter()
     {
         m_direction = new Vector3(InputManager.DodgeDirection.x, 0.0f, InputManager.DodgeDirection.y);
-        m_playerAnimator.SetDirection("dodge", m_playerController.TransformVector3ToLocal(m_direction));
+        m_playerAnimator.SetDirection("dodge", m_playerController.TransformVector3ToLocal(m_direction).Round());
         m_playerAnimator.SetDirection("dir", Vector3.zero);
         m_playerAnimator.SetBool("dodged", true);
         m_playerController.SetMoveDir(m_direction.normalized);

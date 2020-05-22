@@ -13,11 +13,6 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_controller;
     private Vector3 m_lookDir;
 
-    public bool m_isRunning = false;
-    public bool m_hasAttacked = false;
-    public bool m_hasKicked = false;
-    public bool m_isBlocking = false;
-
     [Header("Particles")]
     [SerializeField]
     private Transform m_leftFoot;
@@ -46,24 +41,9 @@ public class PlayerController : MonoBehaviour
             { typeof(IdleState), new IdleState(this) },
             { typeof(WalkState), new WalkState(this) },
             { typeof(RunState), new RunState(this) },
-            { typeof(AttackState), new AttackState(this) },
             { typeof(DodgeState), new DodgeState(this) },
-            { typeof(BlockState), new BlockState(this) },
-            { typeof(KickState), new KickState(this) },
         });
         m_controller = GetComponent<CharacterController>();
-    }
-
-    private void Start()
-    {
-        InputManager.playerInput.Run.performed += _ => m_isRunning = true;
-        InputManager.playerInput.Run.canceled += _ => m_isRunning = false;
-        InputManager.playerInput.Attack.performed += _ => m_hasAttacked = true;
-        InputManager.playerInput.Attack.canceled += _ => m_hasAttacked = false;
-        InputManager.playerInput.Kick.performed += _ => m_hasKicked = true;
-        InputManager.playerInput.Kick.canceled += _ => m_hasKicked = false;
-        InputManager.playerInput.Block.performed += _ => m_isBlocking = true;
-        InputManager.playerInput.Block.canceled += _ => m_isBlocking = false;
     }
 
     private void Update()

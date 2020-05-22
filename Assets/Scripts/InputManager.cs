@@ -24,10 +24,9 @@ public static class InputManager
     public static PlayerInput.TestActions Test;
 
     // Double tapping
-    public static bool HasDodged => m_hasDodged;
     public static Vector2 DodgeDirection;
-    private static bool m_hasDodged = false;
     private static Dictionary<char, float> m_firstTapPerKey;
+    public static bool hasDodged, isRunning, hasAttacked, hasKicked, isBlocking;
 
     public static void Awake()
     {
@@ -47,6 +46,14 @@ public static class InputManager
         m_playerInput.Player.DodgeD.performed += ctx => OnDodgeTap('d');
         m_playerInput.Player.Dodge.performed += ctx => OnDodge(true);
         m_playerInput.Player.Dodge.canceled += ctx => OnDodge(false);
+        m_playerInput.Player.Run.performed += _ => isRunning = true;
+        m_playerInput.Player.Run.canceled += _ => isRunning = false;
+        m_playerInput.Player.Attack.performed += _ => hasAttacked = true;
+        m_playerInput.Player.Attack.canceled += _ => hasAttacked = false;
+        m_playerInput.Player.Kick.performed += _ => hasKicked = true;
+        m_playerInput.Player.Kick.canceled += _ => hasKicked = false;
+        m_playerInput.Player.Block.performed += _ => isBlocking = true;
+        m_playerInput.Player.Block.canceled += _ => isBlocking = false;
 
         var offset = 10.0f; // to prevent double tap when player first starts moving
         m_firstTapPerKey = new Dictionary<char, float>() {
@@ -57,14 +64,14 @@ public static class InputManager
 
     private static void OnDodge(bool _b)
     {
-        m_hasDodged = (_b && InputDirection != Vector2.zero);
-        DodgeDirection = (m_hasDodged) ? InputDirection : Vector2.zero;
+        hasDodged = (_b && InputDirection != Vector2.zero);
+        DodgeDirection = (hasDodged) ? InputDirection : Vector2.zero;
     }
 
     private static void OnDodgeTap(char _c)
     {
         DodgeDirection = Vector3.zero;
-        if (!m_hasDodged)
+        if (!hasDodged)
         {
             var currentTime = Time.time;
             var dodgeTime = 0.5f;
@@ -78,7 +85,7 @@ public static class InputManager
                     DodgeDirection.x = -1.0f;
                 else if (_c == 'd')
                     DodgeDirection.x = 1.0f;
-                m_hasDodged = true;
+                hasDodged = true;
             }
             else
             {
@@ -89,7 +96,7 @@ public static class InputManager
 
     public static void SetDodged(bool _B)
     {
-        m_hasDodged = _B;
+        hasDodged = _B;
     }
 
     private static void OnLMBPressed()

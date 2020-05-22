@@ -61,6 +61,15 @@ public static class Extensions
         return new Vector3(Mathf.Abs(_v.x), Mathf.Abs(_v.y), Mathf.Abs(_v.z));
     }
 
+    public static Vector3 Round(this Vector3 _v)
+    {
+        Vector3 rounded = _v;
+        rounded.x = Mathf.Round(rounded.x);
+        rounded.y = Mathf.Round(rounded.y);
+        rounded.z = Mathf.Round(rounded.z);
+        return rounded;
+    }
+
     public static int RoundFloatToInt(float _x)
     {
         var decimalX = _x % 1.0f;
