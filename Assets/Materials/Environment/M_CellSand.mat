@@ -42,7 +42,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: 3174a557346867d459204099851b08af, type: 3}
+        m_Texture: {fileID: 2800000, guid: a3cd8f1b5edf0914fb808e9e5ee3e94c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3174a557346867d459204099851b08af, type: 3}
+        m_Texture: {fileID: 2800000, guid: a3cd8f1b5edf0914fb808e9e5ee3e94c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -90,7 +90,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: a9a3c50b78fb4e74784d15912f008b65, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6583cc5396e817c49960a27037ce509e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -141,9 +141,9 @@ Material:
     - _CullModeForward: 2
     - _Cutoff: 0.5
     - _DepthOffsetEnable: 0
-    - _DetailAlbedoScale: 0.42
-    - _DetailNormalScale: 0.16
-    - _DetailSmoothnessScale: 0
+    - _DetailAlbedoScale: 0
+    - _DetailNormalScale: 0.13
+    - _DetailSmoothnessScale: 0.03
     - _DiffusionProfile: 0
     - _DiffusionProfileHash: 0
     - _DisplacementLockObjectScale: 1
