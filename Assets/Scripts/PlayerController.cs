@@ -144,7 +144,6 @@ public class PlayerController : MonoBehaviour
 
     public void PlayBackwardFootParticle(AnimationEvent _evt)
     {
-        // Debug.Log(evt.animatorClipInfo.clip.name + ", " + evt.animatorClipInfo.weight + ", " + evt.intParameter);
         var foot = _evt.intParameter;
         if (_evt.animatorClipInfo.weight > 0.5f)
         {

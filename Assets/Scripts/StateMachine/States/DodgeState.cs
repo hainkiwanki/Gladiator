@@ -15,8 +15,6 @@ public class DodgeState : State
         if (dodgeDirection.x != 0.0f && dodgeDirection.z != 0.0f)
             dodgeDirection.z = 0.0f;
 
-
-
         m_playerAnimator.SetDirection("dodge", dodgeDirection);
         m_playerAnimator.SetDirection("dir", Vector3.zero);
         m_playerAnimator.SetBool("dodged", true);
@@ -51,7 +49,7 @@ public class DodgeState : State
             bool spawnClone = (frame % m_playerController.m_cloneFrameDelay) == 0;
             if(spawnClone)
             {
-                Cloner.ClonePlayer(m_playerController.gameObject, m_playerController.m_cloneDissolveMulti); ;
+                Cloner.ClonePlayer(m_playerController.gameObject, m_playerController.m_cloneDissolveMulti);
             }
             frame++;
             yield return null;
