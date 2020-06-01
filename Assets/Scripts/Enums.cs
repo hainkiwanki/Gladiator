@@ -12,6 +12,11 @@ public enum EButtonType
     LMB, RMB, F, W
 }
 
+public enum EUiElement
+{
+    InteractAlert,
+}
+
 public static class EnumExt
 {
     public static string ToAnimationVariable(this EButtonType _type)

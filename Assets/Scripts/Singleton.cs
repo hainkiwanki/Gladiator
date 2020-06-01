@@ -17,6 +17,11 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
             DontDestroyOnLoad(singletonObject);
         }
+        else
+        {
+            if (m_instance != this)
+                Destroy(m_instance.gameObject);
+        }
         _OnAwake();
     }
 

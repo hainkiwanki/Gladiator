@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public static class InputManager
 {
     private static PlayerInput m_playerInput;
-    private static Camera m_cam;
+    public static Camera m_cam;
 
     private static Vector2 m_mouseScreenPos;
 
@@ -51,6 +51,7 @@ public static class InputManager
         m_playerInput.Player.Kick.canceled += _ => hasKicked = false;
         m_playerInput.Player.Block.performed += _ => isBlocking = true;
         m_playerInput.Player.Block.canceled += _ => isBlocking = false;
+        m_playerInput.Test.TestButton.performed += _ => OnTestButton();
 
         var offset = 10.0f; // to prevent double tap when player first starts moving
         m_firstTapPerKey = new Dictionary<char, float>() {
@@ -58,6 +59,12 @@ public static class InputManager
             {'d', Time.time - offset }, {'a', Time.time - offset } };
 
     }
+
+    private static void OnTestButton()
+    {
+        Global.Inst?.SceneSwitch();
+    }
+
 
     private static void OnDodge(bool _b)
     {
@@ -108,12 +115,15 @@ public static class InputManager
 
     public static void Update()
     {
-        if (hasAttacked)
-            hasAttacked = false;
         if (GetMouseWorldPosition(out Vector3 worldPos))
         {
             m_mouseWorldPos = worldPos;
         }
+    }
+
+    public static void LateUpdate()
+    {
+        hasAttacked = false;
     }
 
     private static void ReadMousePos(Vector2 _screenPos)
@@ -124,6 +134,7 @@ public static class InputManager
     public static bool GetMouseWorldPosition(out Vector3 _worldPos)
     {
         _worldPos = Vector3.zero;
+        if (m_cam == null) return false;
 
         Ray ray = m_cam.ScreenPointToRay(m_mouseScreenPos);
         RaycastHit hit;

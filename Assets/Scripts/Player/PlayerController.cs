@@ -68,6 +68,13 @@ public class PlayerController : MonoBehaviour
         m_fsm.Update();
     }
 
+    public void Teleport(Vector3 _pos)
+    {
+        m_controller.enabled = false;
+        transform.position = _pos;
+        m_controller.enabled = true;
+    }
+
     public void Move()
     {
         m_controller.Move(m_moveDir * m_speed * Time.deltaTime);

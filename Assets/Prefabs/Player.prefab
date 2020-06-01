@@ -1724,7 +1724,7 @@ GameObject:
   - component: {fileID: 4099056424422912659}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1808,6 +1808,7 @@ MonoBehaviour:
   m_cloneFrameDelay: 12
   m_cloneDissolveMulti: 6
   m_attackSpeed: 1
+  m_comboCount: 3
 --- !u!114 &4099056424422912659
 MonoBehaviour:
   m_ObjectHideFlags: 0
