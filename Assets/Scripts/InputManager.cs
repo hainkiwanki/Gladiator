@@ -34,7 +34,7 @@ public static class InputManager
         m_playerInput = new PlayerInput();
         playerInput = m_playerInput.Player;
         Test = m_playerInput.Test;
-
+        
         m_playerInput.Player.MousePosition.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
         m_playerInput.Player.Movement.performed += ctx => InputDirection = ctx.ReadValue<Vector2>();
 
@@ -52,11 +52,14 @@ public static class InputManager
         m_playerInput.Player.Block.performed += _ => isBlocking = true;
         m_playerInput.Player.Block.canceled += _ => isBlocking = false;
         m_playerInput.Test.TestButton.performed += _ => OnTestButton();
+        
 
         var offset = 10.0f; // to prevent double tap when player first starts moving
         m_firstTapPerKey = new Dictionary<char, float>() {
             {'w', Time.time - offset }, {'s', Time.time - offset }, 
             {'d', Time.time - offset }, {'a', Time.time - offset } };
+
+
 
     }
 
@@ -64,7 +67,6 @@ public static class InputManager
     {
         Global.Inst?.SceneSwitch();
     }
-
 
     private static void OnDodge(bool _b)
     {

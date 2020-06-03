@@ -36,7 +36,7 @@ public abstract class Interactable : MonoBehaviour
             return;
 
         m_outlineObject.enabled = true;
-        UIManager.Inst?.ShowInteractAlert("F");
+        // UIManager.Inst?.ShowInteractAlert("F");
     }
 
     private void OnTriggerExit(Collider _other)
@@ -44,7 +44,7 @@ public abstract class Interactable : MonoBehaviour
         if (_other.tag != "Player")
             return;
 
-        UIManager.Inst?.ShowInteractAlert("F", true);
+        // UIManager.Inst?.ShowInteractAlert("F", true);
         m_outlineObject.enabled = false;
     }
 }

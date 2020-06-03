@@ -13,20 +13,6 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_controller;
     private Vector3 m_lookDir;
 
-    [Header("Particles")]
-    [SerializeField]
-    private Transform m_leftFoot;
-    [SerializeField]
-    private Transform m_leftFootTip;
-    [SerializeField]
-    private Transform m_rightFoot;
-    [SerializeField]
-    private Transform m_rightFootTip;
-    [SerializeField]
-    private GameObject m_footprintParticle;
-    [SerializeField]
-    private GameObject m_footprintTipParticle;
-
     private Camera m_cam;
     public Transform CameraTransform => m_cam.transform;
 
@@ -147,26 +133,6 @@ public class PlayerController : MonoBehaviour
     {
         var angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
         return Quaternion.Euler(0.0f, -angle, 0.0f) * _absDir;
-    }
-
-    public void PlayBackwardFootParticle(AnimationEvent _evt)
-    {
-        var foot = _evt.intParameter;
-        if (_evt.animatorClipInfo.weight > 0.5f)
-        {
-            var footT = (foot > 0) ? m_rightFootTip : m_leftFootTip;
-            Instantiate(m_footprintTipParticle, footT);
-        }
-    }
-
-    public void PlayFootprintParticle(AnimationEvent _evt) // 1 = right foot, -1 = left foot
-    {
-        var foot = _evt.intParameter;
-        if (_evt.animatorClipInfo.weight > 0.5f)
-        {
-            var footT = (foot > 0) ? m_rightFoot : m_leftFoot;
-            Instantiate(m_footprintParticle, footT);
-        }
     }
 
     public void StartACoroutine(IEnumerator _co)

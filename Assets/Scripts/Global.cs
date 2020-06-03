@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 public class Global : Singleton<Global>
 {
     private Scene m_currentScene;
-    [SerializeField]
-    private GameObject m_playerPrefab;
     private bool m_isLoadingScene = false;
 
     protected override void _OnAwake()
@@ -16,9 +14,6 @@ public class Global : Singleton<Global>
 
     protected override void _OnStart()
     {
-        if(PlayerData.playerObject == null)
-            PlayerData.playerObject = Instantiate(m_playerPrefab, Vector3.zero, Quaternion.identity);
-
         SceneManager.sceneLoaded += OnSceneSwitched;
     }
 
@@ -50,8 +45,6 @@ public class Global : Singleton<Global>
     public void SceneSwitch()
     {
         if (m_currentScene != null && m_isLoadingScene) return;
-
-        PlayerData.playerController.Teleport(Vector3.zero);
         m_isLoadingScene = true;
         if (m_currentScene.name == "Home")
         {
