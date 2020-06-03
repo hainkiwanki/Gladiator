@@ -10,6 +10,7 @@ public class Global : Singleton<Global>
     {
         InputManager.Awake();
         m_currentScene = SceneManager.GetActiveScene();
+        Debug.Log("test");
     }
 
     protected override void _OnStart()
