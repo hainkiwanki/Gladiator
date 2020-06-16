@@ -1,12 +1,7 @@
-﻿public class InteractAlertElement : GUIElement
+﻿using UnityEngine;
+
+public class InteractAlertElement : GUIElement
 {
-    public override void Hide()
-    {
 
-    }
 
-    public override void Show()
-    {
-
-    }
 }

@@ -8,7 +8,6 @@ public static class EventManager
     public delegate void OnAttackComboReady(int _i);
     public static OnAttackComboReady onAttackComboReady;
 
-
     public delegate void OnIdleAnimation();
     public static OnIdleAnimation onIdleAnimationEntered;
     #endregion

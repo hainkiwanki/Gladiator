@@ -10,15 +10,29 @@ public abstract class Interactable : MonoBehaviour
     protected Vector3 m_interactOffset = Vector3.zero;
     protected SphereCollider m_collider;
 
+    protected bool m_playerIsClose = false;
+    protected GUIElement m_guiElement;
+
     private void Awake()
     {
         m_outlineObject = GetComponentInChildren<OutlineObject>();
         m_outlineObject.enabled = false;
 
         m_collider = gameObject.AddComponent<SphereCollider>();
-        m_collider.center = m_interactOffset;
-        m_collider.radius = m_interactRadius;
+
+        m_collider.center = m_interactOffset / transform.lossyScale.x;
+        m_collider.radius = m_interactRadius / transform.lossyScale.x;
         m_collider.isTrigger = true;
+    }
+
+    private void Start()
+    {
+        InputManager.playerInput.Interact.performed += _ => Interact();        
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.playerInput.Interact.performed -= _ => Interact();
     }
 
     [ExecuteInEditMode]
@@ -36,15 +50,25 @@ public abstract class Interactable : MonoBehaviour
             return;
 
         m_outlineObject.enabled = true;
-        // UIManager.Inst?.ShowInteractAlert("F");
+        m_guiElement = GUIManager.Inst?.CreateGUIElement("interact_alert");
+        m_guiElement.Show();
+        m_playerIsClose = true;
     }
 
     private void OnTriggerExit(Collider _other)
     {
         if (_other.tag != "Player")
             return;
-
-        // UIManager.Inst?.ShowInteractAlert("F", true);
         m_outlineObject.enabled = false;
+        m_guiElement.Hide();
+        m_playerIsClose = false;
     }
+
+    private void Interact()
+    {
+        if (m_playerIsClose)
+            OnInteract();
+    }
+
+    protected abstract void OnInteract();
 }
