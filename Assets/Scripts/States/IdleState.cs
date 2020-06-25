@@ -8,7 +8,7 @@ namespace Binki_Gladiator
     [CreateAssetMenu(fileName = "New State", menuName = "Gladiator/AbilityData/Idle")]
     public class IdleState : StateData
     {
-        public override void UpdateAbility(PlayerBaseState _state, Animator _animator)
+        public override void UpdateAbility(CharacterState _state, Animator _animator)
         {
             if(InputManager.inputDirection != Vector2.zero)
             {

@@ -22,34 +22,6 @@ public class PlayerController : MonoBehaviour
     public float m_attackSpeed = 2.0f;
     public int m_comboCount = 3;
 
-    private void Awake()
-    {
-        m_controller = GetComponent<CharacterController>();
-        m_cam = Camera.main;
-    }
-
-    public void Move(Vector2 _input)
-    {
-        m_moveDir = _input.x * m_cam.transform.right + _input.y * m_cam.transform.forward;
-        m_moveDir.y = 0.0f;
-        m_controller.Move(m_moveDir.normalized * m_speed * Time.deltaTime);
-        RotateTowards(m_moveDir);
-    }
-
-    private void RotateTowards(Vector3 _direction)
-    {
-        if (_direction == Vector3.zero) return;
-        var rot = Quaternion.LookRotation(_direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rot, m_rotSpeed * Time.deltaTime);
-    }
-
-    public void Teleport(Vector3 _pos)
-    {
-        m_controller.enabled = false;
-        transform.position = _pos;
-        m_controller.enabled = true;
-    }
-
     public void RotateToMousePos()
     {
         // MAKE SURE GROuND LAYER IS ON THE GROUND PLANE

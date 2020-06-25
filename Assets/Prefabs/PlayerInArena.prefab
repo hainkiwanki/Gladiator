@@ -1720,7 +1720,8 @@ GameObject:
   - component: {fileID: 9050109719709686157}
   - component: {fileID: 1374285177811875063}
   - component: {fileID: 4099056424422912660}
-  - component: {fileID: 4099056424422912661}
+  - component: {fileID: 1613697045}
+  - component: {fileID: 1613697044}
   m_Layer: 0
   m_Name: PlayerInArena
   m_TagString: Player
@@ -1756,9 +1757,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 3a8c04f1388b7b442a6de48cca0c137f, type: 3}
   m_Controller: {fileID: 9100000, guid: 031ff71079f947646badeaab979725be, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1782,7 +1783,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
---- !u!114 &4099056424422912661
+--- !u!114 &1613697045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1791,17 +1792,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5459254519983369118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7b29431dff11cc489a919a3304bcfff, type: 3}
+  m_Script: {fileID: 11500000, guid: bfd69184dead9de4098a9e98db46ee30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotSpeed: 50
-  m_speed: 10
-  m_clonePrefab: {fileID: 5018250144049238176, guid: af449adc3a4432d46a09a776243f4678,
-    type: 3}
-  m_cloneFrameDelay: 12
-  m_cloneDissolveMulti: 6
-  m_attackSpeed: 1
-  m_comboCount: 3
+--- !u!114 &1613697044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459254519983369118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7746a202f0096a4e8e446875b087f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0, z: 0}
+  controller: {fileID: 0}
 --- !u!1 &5474861779535585275
 GameObject:
   m_ObjectHideFlags: 0

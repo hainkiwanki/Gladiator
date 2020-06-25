@@ -8,17 +8,26 @@ namespace Binki_Gladiator
     [CreateAssetMenu(fileName = "New State", menuName = "Gladiator/AbilityData/Run")]
     public class RunState : StateData
     {
-
         [SerializeField]
         private float m_inputDelay = 0.07f;
         private float m_startTime = 0.0f;
         private bool m_hasNoInput = false;
 
-        public override void UpdateAbility(PlayerBaseState _state, Animator _animator)
-        {
-            PlayerController controller = _state.GetPlayerController(_animator);
+        [SerializeField]
+        private float m_speed = 10.0f;
+        [SerializeField]
+        private float m_rotationSpeed = 8.0f;
 
-            controller.Move(InputManager.inputDirection);
+        public override void UpdateAbility(CharacterState _state, Animator _animator)
+        {
+            CharacterControl control = _state.GetCharacterControl(_animator);
+
+            control.controller.Move(control.direction * Time.deltaTime * m_speed);
+            if (control.direction != Vector3.zero)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(control.direction);
+                control.transform.rotation = Quaternion.Slerp(control.transform.rotation, targetRot, m_rotationSpeed * Time.deltaTime);
+            }
 
             m_hasNoInput = (InputManager.inputDirection == Vector2.zero);
             if (m_hasNoInput)

@@ -38,7 +38,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: -8040117846311916835}
   m_StateMachineBehaviours:
-  - {fileID: 2419708788539278415}
+  - {fileID: 3314459592471464387}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -210,6 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataList:
   - {fileID: 11400000, guid: 868b05e368d5a884298a209ca65c5030, type: 2}
+  m_characterController: {fileID: 0}
+  m_playerController: {fileID: 0}
 --- !u!1101 &-4995614662130364121
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -360,7 +362,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 7840361655589710091}
   m_StateMachineBehaviours:
-  - {fileID: -5766058667894218385}
+  - {fileID: 7548663961217829141}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -450,6 +452,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataList:
   - {fileID: 11400000, guid: 3c04212379bbdfc418d8b8a6b00ab6fb, type: 2}
+  m_characterController: {fileID: 0}
+  m_playerController: {fileID: 0}
+--- !u!114 &3314459592471464387
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de9aeabe1ac5a54ba9df5e87bad4faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataList:
+  - {fileID: 11400000, guid: 3c04212379bbdfc418d8b8a6b00ab6fb, type: 2}
 --- !u!1101 &4870259986780466000
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -524,6 +542,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &7548663961217829141
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de9aeabe1ac5a54ba9df5e87bad4faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataList:
+  - {fileID: 11400000, guid: 868b05e368d5a884298a209ca65c5030, type: 2}
 --- !u!1101 &7840361655589710091
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
