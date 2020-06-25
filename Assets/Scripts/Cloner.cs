@@ -9,8 +9,9 @@ public static class Cloner
         // Clone the player and destroy scripts
         var go = GameObject.Instantiate(PlayerReferences.Inst.PlayerClone);
 
+        // TODO: Clones
         // Get current animation from player
-        var pa = _player.GetComponent<PlayerAnimator>();
+        /*var pa = _player.GetComponent<PlayerAnimator>();
         var state = pa.GetAnimationStateInfo();
         float t = state.normalizedTime;
         var clip = pa.GetAnimationClipInfo();
@@ -25,6 +26,6 @@ public static class Cloner
         animClone.transform.rotation = _player.transform.rotation;
 
         var clone = go.GetComponent<Clone>();
-        clone.SpeedMulti = _dissolveMulti;
+        clone.SpeedMulti = _dissolveMulti;*/
     }
 }

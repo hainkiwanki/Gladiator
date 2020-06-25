@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
     private float m_rotSpeed = 10.0f;
-    private StateMachine m_fsm;
-    private float m_speed, m_goalSpeed;
-    private float m_speedChange = 5.0f;
-    private Vector3 m_animDir, m_goalAnimDir;
-    private Vector3 m_moveDir, m_goalMoveDir;
+    [SerializeField]
+    [Range(1, 25)]
+    private float m_speed = 5.0f;
     private CharacterController m_controller;
     private Vector3 m_lookDir;
-
     private Camera m_cam;
-    public Transform CameraTransform => m_cam.transform;
-
+    private Vector3 m_moveDir;
 
     [Header("Clone Settings")]
     public GameObject m_clonePrefab;
@@ -27,31 +24,23 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        m_fsm = new StateMachine();
-        m_fsm.SetStates(new Dictionary<System.Type, State>()
-        {
-            { typeof(IdleState), new IdleState(this) },
-            { typeof(WalkState), new WalkState(this) },
-            { typeof(RunState), new RunState(this) },
-            { typeof(DodgeState), new DodgeState(this) },
-            { typeof(AttackState), new AttackState(this) },
-            { typeof(BlockState), new BlockState(this) },
-        });
         m_controller = GetComponent<CharacterController>();
         m_cam = Camera.main;
     }
 
-    private void Start()
+    public void Move(Vector2 _input)
     {
-        m_fsm.OnStart();
+        m_moveDir = _input.x * m_cam.transform.right + _input.y * m_cam.transform.forward;
+        m_moveDir.y = 0.0f;
+        m_controller.Move(m_moveDir.normalized * m_speed * Time.deltaTime);
+        RotateTowards(m_moveDir);
     }
 
-    private void Update()
+    private void RotateTowards(Vector3 _direction)
     {
-        m_speed = Mathf.Lerp(m_speed, m_goalSpeed, Time.deltaTime * m_speedChange);
-        m_animDir = Vector3.Lerp(m_animDir, m_goalAnimDir, Time.deltaTime * m_speedChange);
-        m_moveDir = Vector3.Lerp(m_moveDir, m_goalMoveDir, Time.deltaTime * m_speedChange);
-        m_fsm.Update();
+        if (_direction == Vector3.zero) return;
+        var rot = Quaternion.LookRotation(_direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, m_rotSpeed * Time.deltaTime);
     }
 
     public void Teleport(Vector3 _pos)
@@ -59,11 +48,6 @@ public class PlayerController : MonoBehaviour
         m_controller.enabled = false;
         transform.position = _pos;
         m_controller.enabled = true;
-    }
-
-    public void Move()
-    {
-        m_controller.Move(m_moveDir * m_speed * Time.deltaTime);
     }
 
     public void RotateToMousePos()
@@ -84,51 +68,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetGoalSpeed(float _speed, bool _instant = false)
-    {
-        m_goalSpeed = _speed;
-        if (_instant)
-            m_speed = m_goalSpeed;
-    }
-
-    public void SetMoveDir(Vector3 _dir)
-    {
-        m_goalMoveDir = m_moveDir = _dir;
-    }
-
-    public Vector3 GetMoveDir()
-    {
-        return m_moveDir;
-    }
-
-    public Vector3 GetLookDir()
-    {
-        return m_lookDir;
-    }
-
-    public void SetGoalAnimationDirection(Vector3 _dir, float _multi = 1.0f, bool _instant = false)
-    {
-        var cameraDir = (m_cam.transform.right.NewY(0.0f).normalized * _dir.x + m_cam.transform.forward.NewY(0.0f).normalized * _dir.z).normalized;
-        _dir = cameraDir;
-        m_goalMoveDir = _dir;
-        m_goalAnimDir.z = Vector3.Dot(_dir, m_lookDir);
-        var perpen = Vector3.Cross(Vector3.up, _dir);
-        var dot = Vector3.Dot(m_lookDir, perpen);
-        m_goalAnimDir.x = -dot;
-        m_goalAnimDir *= _multi;
-
-        if (_instant)
-        {
-            m_animDir = m_goalAnimDir;
-            m_moveDir = m_goalMoveDir;
-        }
-    }
-
-    public Vector3 GetAnimationDirection()
-    {
-        return m_animDir;
-    }
-
     public Vector3 TransformVector3ToLocal(Vector3 _absDir)
     {
         var angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
@@ -138,15 +77,5 @@ public class PlayerController : MonoBehaviour
     public void StartACoroutine(IEnumerator _co)
     {
         StartCoroutine(_co);
-    }
-
-    public void SetComboCounter(int _i)
-    {
-        EventManager.onAttackComboReady?.Invoke(_i);
-    }
-
-    public void EnteredIdleAnimation()
-    {
-        EventManager.onIdleAnimationEntered?.Invoke();
     }
 }

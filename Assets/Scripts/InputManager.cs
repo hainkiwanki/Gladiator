@@ -5,25 +5,15 @@ using UnityEngine.SceneManagement;
 
 public static class InputManager
 {
+    public static Vector2 inputDirection;
+
     private static PlayerInput m_playerInput;
     public static Camera m_cam;
-
     private static Vector2 m_mouseScreenPos;
-
     public static Vector3 mouseWP => m_mouseWorldPos;
     private static Vector3 m_mouseWorldPos;
-
-    public static Vector2 InputDirection;
-
-    // Combo clicking
-    public static int AmountOfClicks => m_amountOfClicks;
-    private static int m_amountOfClicks = 0;
-    private static float m_lastTimeClicked;
-    private static float m_maxComboDelay = 0.4f;
     public static PlayerInput.PlayerActions playerInput;
     public static PlayerInput.TestActions Test;
-
-    // Double tapping
     public static Vector2 DodgeDirection;
     private static Dictionary<char, float> m_firstTapPerKey;
     public static bool hasDodged, isRunning, hasAttacked, hasKicked, isBlocking;
@@ -34,9 +24,10 @@ public static class InputManager
         m_playerInput = new PlayerInput();
         playerInput = m_playerInput.Player;
         Test = m_playerInput.Test;
-        
+
+        m_playerInput.Player.Movement.performed += ctx => inputDirection = ctx.ReadValue<Vector2>();
+
         m_playerInput.Player.MousePosition.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
-        m_playerInput.Player.Movement.performed += ctx => InputDirection = ctx.ReadValue<Vector2>();
 
         m_playerInput.Player.DodgeW.performed += ctx => OnDodgeTap('w');
         m_playerInput.Player.DodgeA.performed += ctx => OnDodgeTap('a');
@@ -58,9 +49,6 @@ public static class InputManager
         m_firstTapPerKey = new Dictionary<char, float>() {
             {'w', Time.time - offset }, {'s', Time.time - offset }, 
             {'d', Time.time - offset }, {'a', Time.time - offset } };
-
-
-
     }
 
     private static void OnTestButton()
@@ -70,8 +58,8 @@ public static class InputManager
 
     private static void OnDodge(bool _b)
     {
-        hasDodged = (_b && InputDirection != Vector2.zero);
-        DodgeDirection = (hasDodged) ? InputDirection : Vector2.zero;
+        hasDodged = (_b && inputDirection != Vector2.zero);
+        DodgeDirection = (hasDodged) ? inputDirection : Vector2.zero;
     }
 
     private static void OnDodgeTap(char _c)
