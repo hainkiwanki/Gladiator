@@ -2,38 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterControl : MonoBehaviour
+namespace Binki_Gladiator
 {
-    [HideInInspector]
-    public Vector3 direction;
-    [HideInInspector]
-    public CharacterController controller;
-    public bool isHoldingWeapon;
-    public bool isPrimaryAttack;
-    public bool isSecondaryAttack;
-    public float rotationSpeed = 8.0f; 
-
-    private void Awake()
+    public class CharacterControl : MonoBehaviour
     {
-        controller = GetComponent<CharacterController>();
-    }
+        [HideInInspector]
+        public Vector3 direction;
+        [HideInInspector]
+        public CharacterController controller;
+        public bool isHoldingWeapon;
+        public bool isPrimaryAttack;
+        public bool isSecondaryAttack;
+        public float rotationSpeed = 8.0f;
+        public List<Collider> collidingParts = new List<Collider>();
+        public Animator animator;
 
-    public void Move(Vector3 _direction, float _speed, float _speedCurve)
-    {
-        controller.Move(_direction * _speed * _speedCurve * Time.deltaTime);
-    }
-
-    public void RotateForward()
-    {
-        if (direction != Vector3.zero)
+        private void Awake()
         {
-            Quaternion targetRot = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+            controller = GetComponent<CharacterController>();
+            animator = GetComponent<Animator>();
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
+        public void Move(Vector3 _direction, float _speed, float _speedCurve)
+        {
+            controller.Move(_direction * _speed * _speedCurve * Time.deltaTime);
+        }
+
+        public void RotateForward()
+        {
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            CharacterControl control = other.transform.root.GetComponent<CharacterControl>();
+
+            if (control == null)
+                return;
+
+            if (other.gameObject == gameObject)
+                return;
+
+            if (!collidingParts.Contains(other))
+            {
+                Debug.Log(other.gameObject.name + " is colliding with " + gameObject.name);
+                collidingParts.Add(other);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (collidingParts.Contains(other))
+                collidingParts.Remove(other);
+        }
     }
 }

@@ -3,25 +3,22 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T m_instance;
 
-    public static T Inst => m_instance;
+    public static T Inst
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                var singletonObject = new GameObject();
+                m_instance = singletonObject.AddComponent<T>();
+                singletonObject.name = typeof(T).ToString();
+            }
+            return m_instance;
+        }
+    }
 
     private void Awake()
     {
-        m_instance = (T)FindObjectOfType(typeof(T));
-
-        if (m_instance == null)
-        {
-            var singletonObject = new GameObject();
-            m_instance = singletonObject.AddComponent<T>();
-            singletonObject.name = typeof(T).ToString();
-
-            DontDestroyOnLoad(singletonObject);
-        }
-        else
-        {
-            if (m_instance != this)
-                Destroy(m_instance.gameObject);
-        }
         _OnAwake();
     }
 

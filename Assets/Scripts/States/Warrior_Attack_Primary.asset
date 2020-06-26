@@ -10,5 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5db2a483af4771745940cb8ecd06a2a6, type: 3}
-  m_Name: Player_Attack_Primary
+  m_Name: Warrior_Attack_Primary
   m_EditorClassIdentifier: 
+  startAttackTime: 0.3
+  endAttackTime: 0.5
+  colliderNames:
+  - Sword
+  mustCollide: 1
+  mustFaceAttacker: 0
+  lethalRange: 0
+  maxHits: 1
+  deathAnimators:
+  - {fileID: 9100000, guid: d93563885e019a84786dc99550354e13, type: 2}

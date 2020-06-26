@@ -54,11 +54,6 @@ public static class InputManager
             {'d', Time.time - offset }, {'a', Time.time - offset } };*/
     }
 
-    private static void OnTestButton()
-    {
-        Global.Inst?.SceneSwitch();
-    }
-
     private static void OnDodge(bool _b)
     {
         hasDodged = (_b && inputDirection != Vector2.zero);

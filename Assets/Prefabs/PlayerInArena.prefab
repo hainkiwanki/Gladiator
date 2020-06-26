@@ -1722,6 +1722,7 @@ GameObject:
   - component: {fileID: 4099056424422912660}
   - component: {fileID: 1613697045}
   - component: {fileID: 1613697044}
+  - component: {fileID: 1304792939}
   m_Layer: 0
   m_Name: PlayerInArena
   m_TagString: Player
@@ -1812,6 +1813,20 @@ MonoBehaviour:
   isHoldingWeapon: 0
   isPrimaryAttack: 0
   isSecondaryAttack: 0
+  rotationSpeed: 8
+  collidingParts: []
+--- !u!114 &1304792939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459254519983369118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f0cd10f1536b34d83baeb8b1069a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5474861779535585275
 GameObject:
   m_ObjectHideFlags: 0

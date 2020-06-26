@@ -39,7 +39,7 @@ namespace Binki_Gladiator
                 _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), true);
             }
 
-            m_hasNoInput = (InputManager.inputDirection == Vector2.zero);
+            m_hasNoInput = control.direction == Vector3.zero;
             if (m_hasNoInput)
             {
                 m_startTime += Time.deltaTime;
