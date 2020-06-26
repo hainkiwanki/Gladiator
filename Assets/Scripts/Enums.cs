@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ETransitionParam
+{
+    Running, ForceTransition, AttackPrimary,
+}
+
 public enum EBehaviourState
 {
     ENTER, EXECUTE, EXIT

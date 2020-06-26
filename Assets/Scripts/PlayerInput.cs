@@ -27,6 +27,22 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""AttackPrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""c58257c8-d477-4af4-96d6-0db3bbf060e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""AttackSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""415a705f-34c8-4b78-a363-02b98532d2ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
                     ""name"": ""MousePosition"",
                     ""type"": ""PassThrough"",
                     ""id"": ""8546c7c2-2e41-4e4a-bda5-c7d25d03bef7"",
@@ -57,22 +73,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""AttackSecondary"",
-                    ""type"": ""Button"",
-                    ""id"": ""415a705f-34c8-4b78-a363-02b98532d2ea"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
-                },
-                {
-                    ""name"": ""AttackPrimary"",
-                    ""type"": ""Button"",
-                    ""id"": ""c58257c8-d477-4af4-96d6-0db3bbf060e2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
                 },
                 {
                     ""name"": ""DodgeW"",
@@ -225,17 +225,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2367a402-7c5d-4ad7-ae48-816100985076"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AttackPrimary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""664e786a-beca-48b1-8d65-93cb924c0bb9"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": ""Tap"",
@@ -291,6 +280,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e955c383-fbd7-47b6-bbb3-d62422a13aa9"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1bc52619-01eb-4d0e-ac0a-65a6f022c3f0"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -302,12 +302,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e955c383-fbd7-47b6-bbb3-d62422a13aa9"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": ""Press"",
+                    ""id"": ""2367a402-7c5d-4ad7-ae48-816100985076"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""AttackPrimary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -411,12 +411,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_AttackPrimary = m_Player.FindAction("AttackPrimary", throwIfNotFound: true);
+        m_Player_AttackSecondary = m_Player.FindAction("AttackSecondary", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
-        m_Player_AttackSecondary = m_Player.FindAction("AttackSecondary", throwIfNotFound: true);
-        m_Player_AttackPrimary = m_Player.FindAction("AttackPrimary", throwIfNotFound: true);
         m_Player_DodgeW = m_Player.FindAction("DodgeW", throwIfNotFound: true);
         m_Player_DodgeS = m_Player.FindAction("DodgeS", throwIfNotFound: true);
         m_Player_DodgeA = m_Player.FindAction("DodgeA", throwIfNotFound: true);
@@ -481,12 +481,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_AttackPrimary;
+    private readonly InputAction m_Player_AttackSecondary;
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_Kick;
-    private readonly InputAction m_Player_AttackSecondary;
-    private readonly InputAction m_Player_AttackPrimary;
     private readonly InputAction m_Player_DodgeW;
     private readonly InputAction m_Player_DodgeS;
     private readonly InputAction m_Player_DodgeA;
@@ -498,12 +498,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @AttackPrimary => m_Wrapper.m_Player_AttackPrimary;
+        public InputAction @AttackSecondary => m_Wrapper.m_Player_AttackSecondary;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @Kick => m_Wrapper.m_Player_Kick;
-        public InputAction @AttackSecondary => m_Wrapper.m_Player_AttackSecondary;
-        public InputAction @AttackPrimary => m_Wrapper.m_Player_AttackPrimary;
         public InputAction @DodgeW => m_Wrapper.m_Player_DodgeW;
         public InputAction @DodgeS => m_Wrapper.m_Player_DodgeS;
         public InputAction @DodgeA => m_Wrapper.m_Player_DodgeA;
@@ -522,6 +522,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @AttackPrimary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackPrimary;
+                @AttackPrimary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackPrimary;
+                @AttackPrimary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackPrimary;
+                @AttackSecondary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackSecondary;
+                @AttackSecondary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackSecondary;
+                @AttackSecondary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackSecondary;
                 @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
@@ -534,12 +540,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Kick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
                 @Kick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
                 @Kick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
-                @AttackSecondary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackSecondary;
-                @AttackSecondary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackSecondary;
-                @AttackSecondary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackSecondary;
-                @AttackPrimary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackPrimary;
-                @AttackPrimary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackPrimary;
-                @AttackPrimary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttackPrimary;
                 @DodgeW.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeW;
                 @DodgeW.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeW;
                 @DodgeW.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeW;
@@ -565,6 +565,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @AttackPrimary.started += instance.OnAttackPrimary;
+                @AttackPrimary.performed += instance.OnAttackPrimary;
+                @AttackPrimary.canceled += instance.OnAttackPrimary;
+                @AttackSecondary.started += instance.OnAttackSecondary;
+                @AttackSecondary.performed += instance.OnAttackSecondary;
+                @AttackSecondary.canceled += instance.OnAttackSecondary;
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
@@ -577,12 +583,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Kick.started += instance.OnKick;
                 @Kick.performed += instance.OnKick;
                 @Kick.canceled += instance.OnKick;
-                @AttackSecondary.started += instance.OnAttackSecondary;
-                @AttackSecondary.performed += instance.OnAttackSecondary;
-                @AttackSecondary.canceled += instance.OnAttackSecondary;
-                @AttackPrimary.started += instance.OnAttackPrimary;
-                @AttackPrimary.performed += instance.OnAttackPrimary;
-                @AttackPrimary.canceled += instance.OnAttackPrimary;
                 @DodgeW.started += instance.OnDodgeW;
                 @DodgeW.performed += instance.OnDodgeW;
                 @DodgeW.canceled += instance.OnDodgeW;
@@ -690,12 +690,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnAttackPrimary(InputAction.CallbackContext context);
+        void OnAttackSecondary(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
         void OnKick(InputAction.CallbackContext context);
-        void OnAttackSecondary(InputAction.CallbackContext context);
-        void OnAttackPrimary(InputAction.CallbackContext context);
         void OnDodgeW(InputAction.CallbackContext context);
         void OnDodgeS(InputAction.CallbackContext context);
         void OnDodgeA(InputAction.CallbackContext context);

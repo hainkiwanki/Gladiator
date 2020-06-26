@@ -6,7 +6,9 @@ namespace Binki_Gladiator
 {
     public abstract class StateData : ScriptableObject
     {
-        public float duration;
-        public abstract void UpdateAbility(CharacterState _state, Animator _animator);
+        public abstract void OnEnter(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator);
+        public abstract void OnUpdate(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator);
+        public abstract void OnExit(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator);
+        
     }
 }

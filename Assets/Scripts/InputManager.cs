@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public static class InputManager
 {
     public static Vector2 inputDirection;
+    public static bool hasPerformedPrimaryAtk = false;
+    public static bool hasPerformedSecondaryAtk = false;
+
 
     private static PlayerInput m_playerInput;
     public static Camera m_cam;
@@ -26,10 +29,11 @@ public static class InputManager
         Test = m_playerInput.Test;
 
         m_playerInput.Player.Movement.performed += ctx => inputDirection = ctx.ReadValue<Vector2>();
+        m_playerInput.Player.AttackPrimary.started += _ => hasPerformedPrimaryAtk = true;
 
         m_playerInput.Player.MousePosition.performed += ctx => ReadMousePos(ctx.ReadValue<Vector2>());
 
-        m_playerInput.Player.DodgeW.performed += ctx => OnDodgeTap('w');
+        /*m_playerInput.Player.DodgeW.performed += ctx => OnDodgeTap('w');
         m_playerInput.Player.DodgeA.performed += ctx => OnDodgeTap('a');
         m_playerInput.Player.DodgeS.performed += ctx => OnDodgeTap('s');
         m_playerInput.Player.DodgeD.performed += ctx => OnDodgeTap('d');
@@ -37,7 +41,6 @@ public static class InputManager
         m_playerInput.Player.Dodge.canceled += ctx => OnDodge(false);
         m_playerInput.Player.Run.performed += _ => isRunning = true;
         m_playerInput.Player.Run.canceled += _ => isRunning = false;
-        m_playerInput.Player.AttackPrimary.performed += _ => hasAttacked = true;
         m_playerInput.Player.Kick.performed += _ => hasKicked = true;
         m_playerInput.Player.Kick.canceled += _ => hasKicked = false;
         m_playerInput.Player.Block.performed += _ => isBlocking = true;
@@ -48,7 +51,7 @@ public static class InputManager
         var offset = 10.0f; // to prevent double tap when player first starts moving
         m_firstTapPerKey = new Dictionary<char, float>() {
             {'w', Time.time - offset }, {'s', Time.time - offset }, 
-            {'d', Time.time - offset }, {'a', Time.time - offset } };
+            {'d', Time.time - offset }, {'a', Time.time - offset } };*/
     }
 
     private static void OnTestButton()
@@ -109,6 +112,9 @@ public static class InputManager
         {
             m_mouseWorldPos = worldPos;
         }
+
+        if (hasPerformedPrimaryAtk)
+            hasPerformedPrimaryAtk = false;
     }
 
     public static void LateUpdate()

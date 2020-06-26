@@ -14,6 +14,22 @@
                     "interactions": ""
                 },
                 {
+                    "name": "AttackPrimary",
+                    "type": "Button",
+                    "id": "c58257c8-d477-4af4-96d6-0db3bbf060e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "AttackSecondary",
+                    "type": "Button",
+                    "id": "415a705f-34c8-4b78-a363-02b98532d2ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
                     "name": "MousePosition",
                     "type": "PassThrough",
                     "id": "8546c7c2-2e41-4e4a-bda5-c7d25d03bef7",
@@ -44,22 +60,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "AttackSecondary",
-                    "type": "Button",
-                    "id": "415a705f-34c8-4b78-a363-02b98532d2ea",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap"
-                },
-                {
-                    "name": "AttackPrimary",
-                    "type": "Button",
-                    "id": "c58257c8-d477-4af4-96d6-0db3bbf060e2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap"
                 },
                 {
                     "name": "DodgeW",
@@ -212,17 +212,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2367a402-7c5d-4ad7-ae48-816100985076",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AttackPrimary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "664e786a-beca-48b1-8d65-93cb924c0bb9",
                     "path": "<Keyboard>/w",
                     "interactions": "Tap",
@@ -278,6 +267,17 @@
                 },
                 {
                     "name": "",
+                    "id": "e955c383-fbd7-47b6-bbb3-d62422a13aa9",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1bc52619-01eb-4d0e-ac0a-65a6f022c3f0",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -289,12 +289,12 @@
                 },
                 {
                     "name": "",
-                    "id": "e955c383-fbd7-47b6-bbb3-d62422a13aa9",
-                    "path": "<Keyboard>/f",
-                    "interactions": "Press",
+                    "id": "2367a402-7c5d-4ad7-ae48-816100985076",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "AttackPrimary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
