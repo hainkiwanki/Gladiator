@@ -44,6 +44,7 @@ namespace Binki_Gladiator
                 {
                     if(IsCollided(info))
                     {
+                        // Debug.Log("Did collide");
                         TakeDamage(info);
                     }
                 }
@@ -68,7 +69,7 @@ namespace Binki_Gladiator
 
         private void TakeDamage(AttackInfo _info)
         {
-            Debug.Log(_info.attacker.gameObject.name + " hits: " + gameObject.name);
+            // Debug.Log(_info.attacker.gameObject.name + " hits: " + gameObject.name);
             m_control.animator.runtimeAnimatorController = _info.attackState.GetDeathAnimator();
             _info.currentHits++;
         }

@@ -1723,6 +1723,8 @@ GameObject:
   - component: {fileID: 1613697045}
   - component: {fileID: 1613697044}
   - component: {fileID: 1304792939}
+  - component: {fileID: 940130768491053207}
+  - component: {fileID: 4612829077075169728}
   m_Layer: 0
   m_Name: PlayerInArena
   m_TagString: Player
@@ -1809,12 +1811,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
   controller: {fileID: 0}
   isHoldingWeapon: 0
   isPrimaryAttack: 0
   isSecondaryAttack: 0
   rotationSpeed: 8
   collidingParts: []
+  animator: {fileID: 0}
 --- !u!114 &1304792939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1827,6 +1831,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f0cd10f1536b34d83baeb8b1069a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &940130768491053207
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459254519983369118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &4612829077075169728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459254519983369118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bddcdb227af7c249a2514a30051b3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
 --- !u!1 &5474861779535585275
 GameObject:
   m_ObjectHideFlags: 0

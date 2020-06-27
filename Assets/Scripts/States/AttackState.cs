@@ -20,13 +20,15 @@ namespace Binki_Gladiator
         {
             _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), false);
 
-
             GameObject obj = Instantiate(Resources.Load<GameObject>("AttackInfo"));
             AttackInfo info = obj.GetComponent<AttackInfo>();
-            info.ResetInfo(this);
+            info.ResetInfo(this, _state.GetCharacterControl(_animator));
 
             if (!AttackManager.Inst.currentAttacks.Contains(info))
                 AttackManager.Inst.currentAttacks.Add(info);
+
+            CharacterControl control = _state.GetCharacterControl(_animator);
+            control.RotateToMousePosition();
         }
 
         public override void OnUpdate(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
@@ -46,7 +48,7 @@ namespace Binki_Gladiator
 
                     if(!info.isRegistered && info.attackState == this)
                     {
-                        info.Register(this, _state.GetCharacterControl(_animator));
+                        info.Register(this);
                     }
                 }
             }

@@ -8,6 +8,7 @@ namespace Binki_Gladiator
     {
         [HideInInspector]
         public Vector3 direction;
+        public Vector3 mousePosition;
         [HideInInspector]
         public CharacterController controller;
         public bool isHoldingWeapon;
@@ -37,27 +38,10 @@ namespace Binki_Gladiator
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void RotateToMousePosition()
         {
-            CharacterControl control = other.transform.root.GetComponent<CharacterControl>();
-
-            if (control == null)
-                return;
-
-            if (other.gameObject == gameObject)
-                return;
-
-            if (!collidingParts.Contains(other))
-            {
-                Debug.Log(other.gameObject.name + " is colliding with " + gameObject.name);
-                collidingParts.Add(other);
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (collidingParts.Contains(other))
-                collidingParts.Remove(other);
+            Quaternion targetRot = Quaternion.LookRotation(mousePosition - transform.position);
+            transform.rotation = targetRot;
         }
     }
 }

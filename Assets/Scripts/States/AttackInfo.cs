@@ -18,17 +18,17 @@ namespace Binki_Gladiator
         public bool isRegistered;
         public bool isFinished;
 
-        public void ResetInfo(AttackState _attack)
+        public void ResetInfo(AttackState _attack, CharacterControl _attacker)
         {
             isRegistered = false;
             isFinished = false;
             attackState = _attack;
+            attacker = _attacker;
         }
 
-        public void Register(AttackState _attack, CharacterControl _attacker)
+        public void Register(AttackState _attack)
         {
             isRegistered = true;
-            attacker = _attacker;
 
             attackState = _attack;
             colliderNames = _attack.colliderNames;
