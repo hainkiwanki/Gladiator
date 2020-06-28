@@ -16,12 +16,19 @@ namespace Binki_Gladiator
         public int maxHits;
         public List<RuntimeAnimatorController> deathAnimators = new List<RuntimeAnimatorController>();
 
+        private List<AttackInfo> finishedAttacks = new List<AttackInfo>();
+
         public override void OnEnter(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
             _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), false);
 
-            GameObject obj = Instantiate(Resources.Load<GameObject>("AttackInfo"));
+            // GameObject obj = Instantiate(Resources.Load<GameObject>("AttackInfo"));
+            // AttackInfo info = obj.GetComponent<AttackInfo>();
+
+            GameObject obj = PoolManager.Inst.GetObject(EPoolObjectType.ATTACKINFO);
             AttackInfo info = obj.GetComponent<AttackInfo>();
+
+            obj.SetActive(true);
             info.ResetInfo(this, _state.GetCharacterControl(_animator));
 
             if (!AttackManager.Inst.currentAttacks.Contains(info))
@@ -66,7 +73,8 @@ namespace Binki_Gladiator
                     if(info.attackState == this && !info.isFinished)
                     {
                         info.isFinished = true;
-                        Destroy(info.gameObject);
+                        // Destroy(info.gameObject);
+                        info.GetComponent<PoolObject>().TurnOff();
                     }
                 }
             }
@@ -79,11 +87,20 @@ namespace Binki_Gladiator
 
         public void ClearAttack()
         {
-            for (int i = 0; i < AttackManager.Inst.currentAttacks.Count; i++)
+            finishedAttacks.Clear();
+            foreach(AttackInfo info in AttackManager.Inst.currentAttacks)
             {
-                if(AttackManager.Inst.currentAttacks[i] == null || AttackManager.Inst.currentAttacks[i].isFinished)
+                if(info == null || info.isFinished)
                 {
-                    AttackManager.Inst.currentAttacks.RemoveAt(i);
+                    finishedAttacks.Add(info);
+                }
+            }
+
+            foreach(AttackInfo info in finishedAttacks)
+            {
+                if(AttackManager.Inst.currentAttacks.Contains(info))
+                {
+                    AttackManager.Inst.currentAttacks.Remove(info);
                 }
             }
         }

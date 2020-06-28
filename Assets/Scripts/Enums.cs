@@ -7,9 +7,14 @@ public enum ETransitionParam
     Running, ForceTransition, AttackPrimary,
 }
 
-public enum EBehaviourState
+public enum EPoolObjectType
 {
-    ENTER, EXECUTE, EXIT
+    ATTACKINFO, 
+}
+
+public enum EGeneralBodyPart
+{
+    UPPER, LOWER, ARM, LEG
 }
 
 public enum EButtonType

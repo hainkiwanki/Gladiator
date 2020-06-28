@@ -7,6 +7,7 @@ namespace Binki_Gladiator
     public class DamageDetector : MonoBehaviour
     {
         private CharacterControl m_control;
+        private EGeneralBodyPart m_damagedPart;
 
         private void Awake()
         {
@@ -53,13 +54,17 @@ namespace Binki_Gladiator
 
         private bool IsCollided(AttackInfo _info)
         {
-            foreach(Collider col in m_control.collidingParts)
+            foreach (TriggerDetector trigger in m_control.GetAllTriggers())
             {
-                foreach (string name in _info.colliderNames)
+                foreach(Collider col in trigger.collidingParts)
                 {
-                    if (col.gameObject.name == name)
+                    foreach (string name in _info.colliderNames)
                     {
-                        return true;
+                        if (col.gameObject.name == name)
+                        {
+                            m_damagedPart = trigger.generalBodyPart;
+                            return true;
+                        }
                     }
                 }
             }
@@ -70,6 +75,7 @@ namespace Binki_Gladiator
         private void TakeDamage(AttackInfo _info)
         {
             // Debug.Log(_info.attacker.gameObject.name + " hits: " + gameObject.name);
+            Debug.Log($"{gameObject.name} hit {m_damagedPart.ToString()}");
             m_control.animator.runtimeAnimatorController = _info.attackState.GetDeathAnimator();
             _info.currentHits++;
         }

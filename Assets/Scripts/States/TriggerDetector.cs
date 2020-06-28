@@ -6,8 +6,11 @@ namespace Binki_Gladiator
 {
     public class TriggerDetector : MonoBehaviour
     {
+        public EGeneralBodyPart generalBodyPart;
+
         [SerializeField]
         private CharacterControl owner;
+        public List<Collider> collidingParts = new List<Collider>();
 
         private void Awake()
         {
@@ -16,6 +19,11 @@ namespace Binki_Gladiator
 
         private void OnTriggerEnter(Collider col)
         {
+            if (owner.ragdollParts.Contains(col))
+            {
+                return;
+            }
+
             CharacterControl attacker = col.transform.root.GetComponent<CharacterControl>();
 
             if (attacker == null)
@@ -26,16 +34,17 @@ namespace Binki_Gladiator
                 return;
             }
 
-            if (!owner.collidingParts.Contains(col))
+            // Debug.Log($"{owner.gameObject.name} collided with {gameObject.name}");
+            if (!collidingParts.Contains(col))
             {
-                owner.collidingParts.Add(col);
+                collidingParts.Add(col);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (owner.collidingParts.Contains(other))
-                owner.collidingParts.Remove(other);
+            if (collidingParts.Contains(other))
+                collidingParts.Remove(other);
         }
     }
 }

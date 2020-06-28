@@ -38,5 +38,10 @@ namespace Binki_Gladiator
             maxHits = _attack.maxHits;
             currentHits = 0;
         }
+
+        private void OnDisable()
+        {
+            isFinished = true;
+        }
     }
 }
