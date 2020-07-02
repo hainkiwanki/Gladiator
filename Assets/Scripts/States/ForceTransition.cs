@@ -13,7 +13,7 @@ namespace Binki_Gladiator
 
         public override void OnEnter(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
-
+            _animator.SetBool(ETransitionParam.ForceTransition.ToString(), false);
         }
         public override void OnUpdate(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {

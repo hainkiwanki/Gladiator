@@ -8,22 +8,21 @@ namespace Binki_Gladiator
     [CreateAssetMenu(fileName = "New State", menuName = "Gladiator/StateData/Attack")]
     public class AttackState : StateData
     {
+        public bool debug = false;
+
         public float startAttackTime, endAttackTime;
         public List<string> colliderNames = new List<string>();
+        public bool lauchIntoAir;
         public bool mustCollide;
         public bool mustFaceAttacker;
         public float lethalRange;
         public int maxHits;
-        public List<RuntimeAnimatorController> deathAnimators = new List<RuntimeAnimatorController>();
 
         private List<AttackInfo> finishedAttacks = new List<AttackInfo>();
 
         public override void OnEnter(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
             _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), false);
-
-            // GameObject obj = Instantiate(Resources.Load<GameObject>("AttackInfo"));
-            // AttackInfo info = obj.GetComponent<AttackInfo>();
 
             GameObject obj = PoolManager.Inst.GetObject(EPoolObjectType.ATTACKINFO);
             AttackInfo info = obj.GetComponent<AttackInfo>();
@@ -42,19 +41,24 @@ namespace Binki_Gladiator
         {
             RegisterAttack(_state, _stateInfo, _animator);
             DeregisterAttack(_state, _stateInfo, _animator);
+            CheckCombo(_state, _stateInfo, _animator);
         }
 
         public void RegisterAttack(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
-            if(startAttackTime <= _stateInfo.normalizedTime && endAttackTime >= _stateInfo.normalizedTime)
+            if (startAttackTime <= _stateInfo.normalizedTime && endAttackTime >= _stateInfo.normalizedTime)
             {
-                foreach(AttackInfo info in AttackManager.Inst.currentAttacks)
+                foreach (AttackInfo info in AttackManager.Inst.currentAttacks)
                 {
                     if (info == null)
                         continue;
 
-                    if(!info.isRegistered && info.attackState == this)
+                    if (!info.isRegistered && info.attackState == this)
                     {
+                        if(debug)
+                        {
+                            Debug.Log(name + " registered " + _stateInfo.normalizedTime);
+                        }
                         info.Register(this);
                     }
                 }
@@ -63,18 +67,38 @@ namespace Binki_Gladiator
 
         public void DeregisterAttack(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
-            if(_stateInfo.normalizedTime >= endAttackTime)
+            if (_stateInfo.normalizedTime >= endAttackTime)
             {
-                foreach(AttackInfo info in AttackManager.Inst.currentAttacks)
+                foreach (AttackInfo info in AttackManager.Inst.currentAttacks)
                 {
                     if (info == null)
                         continue;
 
-                    if(info.attackState == this && !info.isFinished)
+                    if (info.attackState == this && !info.isFinished)
                     {
+                        if (debug)
+                        {
+                            Debug.Log(name + " deregistered " + _stateInfo.normalizedTime);
+                        }
+
                         info.isFinished = true;
-                        // Destroy(info.gameObject);
                         info.GetComponent<PoolObject>().TurnOff();
+                    }
+                }
+            }
+        }
+
+        public void CheckCombo(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
+        {
+            if(_stateInfo.normalizedTime >= startAttackTime + ((endAttackTime - startAttackTime) / 3.0f))
+            {
+                if(_stateInfo.normalizedTime < endAttackTime + ((endAttackTime - startAttackTime) / 2.0f))
+                {
+                    CharacterControl control = _state.GetCharacterControl(_animator);
+                    if(control.isPrimaryAttack)
+                    {
+                        Debug.Log("next chain combo");
+                        _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), true);
                     }
                 }
             }
@@ -103,12 +127,6 @@ namespace Binki_Gladiator
                     AttackManager.Inst.currentAttacks.Remove(info);
                 }
             }
-        }
-
-        public RuntimeAnimatorController GetDeathAnimator()
-        {
-            int index = Random.Range(0, deathAnimators.Count);
-            return deathAnimators[index];
         }
     }
 }

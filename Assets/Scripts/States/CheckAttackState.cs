@@ -5,13 +5,12 @@ using UnityEngine;
 
 namespace Binki_Gladiator
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Gladiator/StateData/Idle")]
-    public class IdleState : StateData
+    // Used when not coming from an attack => falling to attack
+    [CreateAssetMenu(fileName = "New State", menuName = "Gladiator/StateData/CheckAttack")]
+    public class CheckAttackState : StateData
     {
         public override void OnEnter(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
-            _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), false);
-            _animator.SetBool(ETransitionParam.Running.ToString(), false);
         }
 
         public override void OnUpdate(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
@@ -20,19 +19,11 @@ namespace Binki_Gladiator
             if (control.isPrimaryAttack)
             {
                 _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), true);
-                return;
-            }
-
-            if (control.direction != Vector3.zero)
-            {
-                _animator.SetBool(ETransitionParam.Running.ToString(), true);
-                return;
             }
         }
 
         public override void OnExit(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
-            _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), false);
         }
 
     }

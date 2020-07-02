@@ -9,7 +9,7 @@ namespace Binki_Gladiator
         public CharacterControl attacker = null;
         public AttackState attackState;
         public List<string> colliderNames = new List<string>();
-
+        public bool launchInAir;
         public bool mustCollide;
         public bool mustFaceAttacker;
         public float lethalRange;
@@ -32,6 +32,7 @@ namespace Binki_Gladiator
 
             attackState = _attack;
             colliderNames = _attack.colliderNames;
+            launchInAir = _attack.lauchIntoAir;
             mustCollide = _attack.mustCollide;
             mustFaceAttacker = _attack.mustFaceAttacker;
             lethalRange = _attack.lethalRange;

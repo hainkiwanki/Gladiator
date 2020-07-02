@@ -49,6 +49,14 @@ namespace Binki_Gladiator
                         TakeDamage(info);
                     }
                 }
+                else
+                {
+                    float dist = Vector3.SqrMagnitude(gameObject.transform.position - info.attacker.transform.position);
+                    if(dist <= info.lethalRange)
+                    {
+                        TakeDamage(info);
+                    }
+                }
             }
         }
 
@@ -74,10 +82,12 @@ namespace Binki_Gladiator
 
         private void TakeDamage(AttackInfo _info)
         {
-            // Debug.Log(_info.attacker.gameObject.name + " hits: " + gameObject.name);
             Debug.Log($"{gameObject.name} hit {m_damagedPart.ToString()}");
-            m_control.animator.runtimeAnimatorController = _info.attackState.GetDeathAnimator();
+            m_control.animator.runtimeAnimatorController = DeathAnimationManager.Inst.GetAnimator(m_damagedPart, _info);
             _info.currentHits++;
+            m_control.GetComponent<CharacterControl>().enabled = false;
+
+            // TODO: RAGDOLL??
         }
     }
 }
