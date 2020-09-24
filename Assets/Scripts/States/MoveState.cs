@@ -34,11 +34,6 @@ namespace Binki_Gladiator
             else
                 AutomaticMove(control, _stateInfo, _animator);
 
-            if (control.isPrimaryAttack)
-            {
-                _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), true);
-            }
-
             m_hasNoInput = control.direction == Vector3.zero;
             if (m_hasNoInput)
             {
@@ -56,6 +51,11 @@ namespace Binki_Gladiator
 
         private void ControlledMove(CharacterControl _control, AnimatorStateInfo _info, Animator _animator)
         {
+            if (_control.isPrimaryAttack)
+            {
+                _animator.SetBool(ETransitionParam.AttackPrimary.ToString(), true);
+            }
+
             _control.Move(_control.direction, m_speed, m_speedCurve.Evaluate(_info.normalizedTime));
             _control.RotateForward();
         }

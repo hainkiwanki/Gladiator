@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db2a483af4771745940cb8ecd06a2a6, type: 3}
   m_Name: Warrior_Attack_Primary_2
   m_EditorClassIdentifier: 
+  debug: 0
   startAttackTime: 0.2
-  endAttackTime: 0.3
+  endAttackTime: 0.5
   colliderNames:
   - Sword
   lauchIntoAir: 0

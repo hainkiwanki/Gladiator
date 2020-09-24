@@ -114,7 +114,7 @@ namespace Binki_Gladiator
             finishedAttacks.Clear();
             foreach(AttackInfo info in AttackManager.Inst.currentAttacks)
             {
-                if(info == null || info.isFinished)
+                if(info == null || info.attackState == this /* info.isFinished */)
                 {
                     finishedAttacks.Add(info);
                 }

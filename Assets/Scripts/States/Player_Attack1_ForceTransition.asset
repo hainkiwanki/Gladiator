@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a488c4f1c265d64f9439179e7eacf2f, type: 3}
   m_Name: Player_Attack1_ForceTransition
   m_EditorClassIdentifier: 
-  transitionTime: 0.8
+  transitionTime: 0.95
