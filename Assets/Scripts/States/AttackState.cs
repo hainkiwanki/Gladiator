@@ -90,7 +90,7 @@ namespace Binki_Gladiator
 
         public void CheckCombo(CharacterState _state, AnimatorStateInfo _stateInfo, Animator _animator)
         {
-            if(_stateInfo.normalizedTime >= startAttackTime + ((endAttackTime - startAttackTime) / 3.0f))
+            if(_stateInfo.normalizedTime >= startAttackTime + ((endAttackTime - startAttackTime) / 2.0f))
             {
                 if(_stateInfo.normalizedTime < endAttackTime + ((endAttackTime - startAttackTime) / 2.0f))
                 {

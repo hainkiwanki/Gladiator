@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Warrior_Attack_Primary
   m_EditorClassIdentifier: 
   debug: 1
-  startAttackTime: 0.44
+  startAttackTime: 0.4
   endAttackTime: 0.6
   colliderNames:
   - Sword
